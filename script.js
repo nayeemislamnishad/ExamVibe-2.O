@@ -101,7 +101,7 @@ function startReviseTimer() {
     const resultDiv = document.getElementById('minuteGarbage');
     resultDiv.textContent = `${timerDuration} minutes`;
 
-    let timeLeft = 30;
+    let timeLeft =1;
     const timerElement = document.getElementById('timer');
     const submitButton = document.getElementById('generatedText');
 
@@ -138,6 +138,7 @@ function customRound(number) {
 }
 
 function startExam() {
+    
     const questionNumber = gucco1.length;
     const startQ = startQnumber;
     const timePerQuestion = parseInt(document.getElementById('timePerQuestion').value, 10);
@@ -147,14 +148,16 @@ function startExam() {
     console.log(timerDuration);
     const resultDiv = document.getElementById('minuteGarbage');
     resultDiv.textContent = `${timerDuration} minutes`;
-
     startTime = new Date().toLocaleString();
     let answerSheetHTML = '<h2>OMR Answer Sheet</h2>';
+
+    
+
     for (let i = 1; i <= questionNumber; i++) {
         answerSheetHTML += `<div id="question${i + startQ}"><strong> ${i + startQ}:</strong> `;
         for (let j = 0; j < 4; j++) {
             const option = String.fromCharCode(97 + j);
-            answerSheetHTML += `<div class="option" onclick="selectOption(this, '${option}', ${i})">${option}</div>`;
+            answerSheetHTML += `<div class="option" onclick="selectOption(this, '${option}', ${i + startQ})">${option}</div>`;
         }
         answerSheetHTML += `</div>`;
     }
@@ -172,13 +175,40 @@ function startExam() {
     totalCount = parseInt(questionNumber);
 }
 
+// function selectOption(option, letter, questionNumber) {
+//     if (answersSubmitted) return;
+
+//     // Get all options for the current question
+//     const options = option.parentNode.querySelectorAll('.option');
+    
+//     // If an option is already selected, do nothing
+//     if (option.classList.contains('selected')) return;
+
+//     // Disable all options for this question
+//     options.forEach(opt => {
+//         opt.classList.remove('selected');
+//         opt.onclick = null; // Disable click for all options
+//     });
+
+//     // Add 'selected' class to the clicked option
+//     option.classList.add('selected');
+//     option.dataset.questionNumber = questionNumber;
+//     console.log(`Selected option ${letter} for Question ${questionNumber}`);
+// }
+
+
+
+
+// Initialize a global array to store selected options
+const selectedOptionss = [];
+
 function selectOption(option, letter, questionNumber) {
     if (answersSubmitted) return;
 
     // Get all options for the current question
     const options = option.parentNode.querySelectorAll('.option');
     
-    // If an option is already selected, do nothing
+    // If the clicked option is already selected, do nothing
     if (option.classList.contains('selected')) return;
 
     // Disable all options for this question
@@ -190,8 +220,20 @@ function selectOption(option, letter, questionNumber) {
     // Add 'selected' class to the clicked option
     option.classList.add('selected');
     option.dataset.questionNumber = questionNumber;
+
+    // Save the selected option and question number
+    selectedOptionss.push({ letter, questionNumber });
+
+    // Log the selected option and update the array
     console.log(`Selected option ${letter} for Question ${questionNumber}`);
+    console.log('Selected options array:', selectedOptionss);
 }
+
+
+
+
+
+
 
 function formatNumber(number) {
     if (Number.isInteger(number)) {
@@ -222,9 +264,18 @@ async function submitAnswers() {
     let answeredQuestions = [];
 
     selectedOptions.forEach(option => {
+       
         const selectedLetter = option.textContent.trim();
-        const correctLetter = correctAnswers[option.dataset.questionNumber - 1].trim();
-        const questionNumber = parseInt(option.dataset.questionNumber);
+       
+          const correctLetter = correctAnswers[option.dataset.questionNumber - startQnumber -1 ].trim();
+        
+        const questionNumber = parseInt(option.dataset.questionNumber - startQnumber );
+
+
+        console.log(`Question Number: ${questionNumber}`);
+        console.log(`Selected Letter: ${selectedLetter}`);
+        console.log(`Correct Letter: ${correctLetter}`);
+
         if (selectedLetter === correctLetter) {
             option.classList.add('correct');
             totalMarks += 1;
@@ -242,7 +293,10 @@ async function submitAnswers() {
             questionDiv.innerHTML += `<div class="option skip">skipped</div>`;
         }
     }
-    
+     console.log(selectedOptionss);
+     selectedOptionss.sort((a, b) => a.questionNumber - b.questionNumber);
+     console.log(selectedOptionss);
+
     scrollToTop();
     document.getElementById('originalMarks').style.display = 'block';
     let output = "Marks: " + formatNumber(totalMarks) + "/" + totalCount;
