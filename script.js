@@ -57,7 +57,6 @@ function showCustomConfirm(message) {
 
 function startTimer(duration, display) {
     document.getElementById('answers').style.display = 'none';
-    // document.getElementById('needToKnow').style.display = 'none';   only for reverse mode
     document.getElementById('needTag').style.display = 'none';
     document.getElementById('numberInput').style.display = 'none';
     document.getElementById('numberInputText').style.display = 'none';
@@ -88,24 +87,20 @@ function startReviseTimer() {
     document.getElementById("answers").style.display = "none";
     document.getElementById("numberInput").style.display = "none"; 
     document.getElementById("timePerQuestion").style.display = "none";
-    
     document.getElementById("timePerQuestionText").style.display = "none";
     document.getElementById("numberInputText").style.display = "none"; 
     document.getElementById("needTag").style.display = "none";
 
-
-    // try
     const questionNumber = gucco1.length;
-    const startQ = startQnumber;
     const timePerQuestion = parseInt(document.getElementById('timePerQuestion').value, 10);
     const timeInSeconds = questionNumber * timePerQuestion;
     const timeInMinutes = timeInSeconds / 60;
     const timerDuration = customRound(timeInMinutes);
-   console.log(timerDuration);
-const resultDiv = document.getElementById('minuteGarbage');
-resultDiv.textContent = `${timerDuration} minutes`;
+    console.log(timerDuration);
+    const resultDiv = document.getElementById('minuteGarbage');
+    resultDiv.textContent = `${timerDuration} minutes`;
 
-    let timeLeft = 30;
+    let timeLeft = 15;  // Change this to 15 for 15 seconds
     const timerElement = document.getElementById('timer');
     const submitButton = document.getElementById('generatedText');
 
@@ -130,18 +125,14 @@ resultDiv.textContent = `${timerDuration} minutes`;
 }
 
 function customRound(number) {
-    // Check if the number is an integer
     if (Number.isInteger(number)) {
-        return number; // If it's already an integer, return it as is
+        return number;
     }
-    
-    // Get the floor of the number
     let floor = Math.floor(number);
-    // Check if the number is closer to the floor or ceiling value
     if (number - floor > 0.5) {
-        return floor + 1; // Round up
+        return floor + 1;
     } else {
-        return floor; // Round down
+        return floor;
     }
 }
 
@@ -154,9 +145,8 @@ function shuffleArray(array) {
 }
 
 function getShuffledIndices(questionNumber) {
-    let indices = Array.from({ length: questionNumber }, (_, i) => i + 1);
+    let indices = Array.from({ length: questionNumber }, (_, i) => i);
 
-    // Custom shuffle: Create your own custom shuffle logic here
     let customShuffle = [];
     customShuffle = customShuffle.concat(indices.slice(12, 17));
     customShuffle = customShuffle.concat(indices.slice(17, 25));
@@ -212,11 +202,11 @@ function selectOption(option, letter, questionNumber) {
     option.dataset.questionNumber = questionNumber;
     console.log(`Selected option ${letter} for Question ${questionNumber}`);
 }
+
 function formatNumber(number) {
     if (Number.isInteger(number)) {
-        return number; // Return integer as is
+        return number;
     } else {
-        // Convert number to a string with up to two decimal places
         return parseFloat(number.toFixed(2));
     }
 }
