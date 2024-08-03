@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Initial setup
     document.getElementById('noteIt').style.display = 'none';
     document.getElementById('submittext').style.display = 'none';
     document.getElementById('answerSheet').style.display = 'none';
@@ -56,6 +57,7 @@ function showCustomConfirm(message) {
 }
 
 function startTimer(duration, display) {
+    console.log('Starting timer with duration:', duration);
     document.getElementById('answers').style.display = 'none';
     document.getElementById('needTag').style.display = 'none';
     document.getElementById('numberInput').style.display = 'none';
@@ -70,6 +72,7 @@ function startTimer(duration, display) {
         display.textContent = minutes + ":" + seconds;
         if (--timer < 0) {
             clearInterval(countdownTimer);
+            console.log('Timer ended.');
             isAutomaticSubmission = true;
             submitAnswers();
         }
@@ -84,6 +87,7 @@ async function generateAnswerSheet() {
 }
 
 function startReviseTimer() {
+    console.log('Starting revise timer.');
     document.getElementById("answers").style.display = "none";
     document.getElementById("numberInput").style.display = "none"; 
     document.getElementById("timePerQuestion").style.display = "none";
@@ -96,7 +100,7 @@ function startReviseTimer() {
     const timeInSeconds = questionNumber * timePerQuestion;
     const timeInMinutes = timeInSeconds / 60;
     const timerDuration = customRound(timeInMinutes);
-    console.log(timerDuration);
+    console.log('Timer duration (minutes):', timerDuration);
     const resultDiv = document.getElementById('minuteGarbage');
     resultDiv.textContent = `${timerDuration} minutes`;
 
@@ -145,6 +149,7 @@ function shuffleArray(array) {
 }
 
 function getShuffledIndices(questionNumber) {
+    console.log('Shuffling indices for', questionNumber, 'questions.');
     let indices = Array.from({ length: questionNumber }, (_, i) => i);
 
     let customShuffle = [];
@@ -153,17 +158,19 @@ function getShuffledIndices(questionNumber) {
     customShuffle = customShuffle.concat(indices.slice(3, 12));
     customShuffle = customShuffle.concat(indices.slice(0, 3));
 
+    console.log('Shuffled indices:', customShuffle);
     return customShuffle;
 }
 
 function startExam() {
+    console.log('Starting exam.');
     const questionNumber = gucco1.length;
     const startQ = startQnumber;
     const timePerQuestion = parseInt(document.getElementById('timePerQuestion').value, 10);
     const timeInSeconds = questionNumber * timePerQuestion;
     const timeInMinutes = timeInSeconds / 60;
     const timerDuration = customRound(timeInMinutes);
-    console.log(timerDuration);
+    console.log('Timer duration (minutes):', timerDuration);
     const resultDiv = document.getElementById('minuteGarbage');
     resultDiv.textContent = `${timerDuration} minutes`;
 
@@ -211,21 +218,14 @@ function formatNumber(number) {
     }
 }
 
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+function submitAnswers() {
+    if (answersSubmitted) return;
 
-async function submitAnswers() {
-    if (!isAutomaticSubmission) {
-        const confirmed = await showCustomConfirm("Are you sure you want to submit your answers?");
-        if (!confirmed) {
-            return;
-        }
-    }
-
-    answersSubmitted = true;
     endTime = new Date().toLocaleString();
+    console.log('Submitting answers.');
+    answersSubmitted = true;
     clearInterval(countdownTimer);
+    
     let score = 0;
     let correctAnswers = 0;
     let incorrectAnswers = 0;
@@ -233,14 +233,12 @@ async function submitAnswers() {
     const answers = [];
     const correctAnswersKey = {};
 
-    // Prepare the correct answers key
     const shuffledIndices = getShuffledIndices(totalCount);
     for (let i = 0; i < totalCount; i++) {
         const questionIndex = shuffledIndices[i];
         correctAnswersKey[questionIndex] = answerSheet[questionIndex];
     }
 
-    // Collect and evaluate answers
     for (let i = 1; i <= totalCount; i++) {
         const questionElement = document.getElementById(`question${i + startQnumber - 1}`);
         const selectedOption = questionElement.querySelector('.option.selected');
@@ -284,4 +282,15 @@ async function submitAnswers() {
     document.getElementById('submittext').style.display = 'none';
     document.getElementById('originalMarks').style.display = 'block';
     scrollToTop();
+}
+
+function scrollToTop() {
+    window.scrollTo(0, 0);
+}
+
+function hideAll() {
+    document.getElementById('answers').style.display = 'none';
+    document.getElementById('needTag').style.display = 'none';
+    document.getElementById('numberInput').style.display = 'none';
+    document.getElementById('numberInputText').style.display = 'none';
 }
