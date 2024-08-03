@@ -1,0 +1,259 @@
+/* styles.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: linear-gradient(to bottom right, #87CEFA, #FFFFFF);
+    /* background: url('https://images.unsplash.com/photo-1457276587196-a9d53d84c58b?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+    background-size: cover;  */
+}
+.curved-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at bottom right, #1E90FF, #00BFFF);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    z-index: -1;
+}
+
+.shape {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+}
+
+.shape:nth-child(2) {
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.3);
+    top: 30%;
+    left: 70%;
+}
+
+.shape:nth-child(3) {
+    width: 250px;
+    height: 250px;
+    background: rgba(255, 255, 255, 0.4);
+    top: 70%;
+    left: 20%;
+}
+.content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    margin-top: 60px;
+}
+
+header {
+    margin-bottom: 20px;
+    text-align: center;
+    width: 100%;
+}
+.examvibe-header {
+    font-size: 48px; /* Large font size */
+    font-weight: 900; /* Extra bold font weight */
+    color: #333; /* Dark text color */
+    font-family: 'Lucida Console', Monaco, monospace; /* Unique font style */
+    /* text-transform: uppercase; Makes all letters uppercase */
+    letter-spacing: 5px; /* Adds space between letters */
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3); /* Adds a subtle shadow to the text */
+}
+
+.verification-box {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 40px;
+    width: 100%;
+    text-align: center;
+}
+.info-box{
+  margin: 20px;
+  
+}
+
+h2 {
+    margin: 0 0 20px;
+    padding: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.input-box {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    border: none;
+    border-bottom: 2px solid #333;
+    outline: none;
+    background: transparent;
+}
+
+.input-box label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.input-box input:focus + label,
+.input-box input:valid + label {
+    top: -20px;
+    left: 0;
+    color: #007bff; /* Light blue color for the label when focused */
+    font-size: 12px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #007bff; /* Light blue background for the button */
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+
+
+button:hover {
+    background: #0056b3; /* Darker blue on hover */
+}
+
+
+
+.video-container {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    animation: fadeIn 2s ease;
+}
+
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+@media (max-width: 600px) {
+    .examvibe-header {
+        font-size: 36px; /* Adjust font size for smaller screens */
+    }
+
+    .verification-box {
+        padding: 20px;
+    }
+
+    .input-box input {
+        font-size: 14px;
+    }
+
+    .input-box label {
+        font-size: 14px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 600px) {
+    .input-box input {
+        font-size: 25px;
+    }
+}
+.input-box input {
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    color: #333;
+    border: none;
+    border-bottom: 2px solid #333;
+    outline: none;
+    background: transparent;
+    padding-top: 20px;
+    color: #179517;
+    font-weight: bold;
+    font-family: cursive;
+}
+
+#verifyBytton{
+    padding: 13px 10px;
+    background: #007bff;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+     border-radius: 5px;
+    transition: 0.3s;
+    width: 50%;
+}
