@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-     document.getElementById('noteIt').style.display = 'none';
+    document.getElementById('noteIt').style.display = 'none';
     document.getElementById('submittext').style.display = 'none';
     document.getElementById('answerSheet').style.display = 'none';
     document.getElementById('timer').style.display = 'none';
@@ -105,10 +105,6 @@ function startReviseTimer() {
 const resultDiv = document.getElementById('minuteGarbage');
 resultDiv.textContent = `${timerDuration} minutes`;
 
-
-
-
-
     let timeLeft = 30;
     const timerElement = document.getElementById('timer');
     const submitButton = document.getElementById('generatedText');
@@ -149,9 +145,26 @@ function customRound(number) {
     }
 }
 
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
 
+function getShuffledIndices(questionNumber) {
+    let indices = Array.from({ length: questionNumber }, (_, i) => i + 1);
 
+    // Custom shuffle: Create your own custom shuffle logic here
+    let customShuffle = [];
+    customShuffle = customShuffle.concat(indices.slice(12, 17));
+    customShuffle = customShuffle.concat(indices.slice(17, 25));
+    customShuffle = customShuffle.concat(indices.slice(3, 12));
+    customShuffle = customShuffle.concat(indices.slice(0, 3));
 
+    return customShuffle;
+}
 
 function startExam() {
     const questionNumber = gucco1.length;
@@ -160,23 +173,20 @@ function startExam() {
     const timeInSeconds = questionNumber * timePerQuestion;
     const timeInMinutes = timeInSeconds / 60;
     const timerDuration = customRound(timeInMinutes);
-   console.log(timerDuration);
-const resultDiv = document.getElementById('minuteGarbage');
-resultDiv.textContent = `${timerDuration} minutes`;
-
-
-
-
-
-
+    console.log(timerDuration);
+    const resultDiv = document.getElementById('minuteGarbage');
+    resultDiv.textContent = `${timerDuration} minutes`;
 
     startTime = new Date().toLocaleString();
     let answerSheetHTML = '<h2>OMR Answer Sheet</h2>';
-    for (let i = 1; i <= questionNumber; i++) {
-        answerSheetHTML += `<div id="question${i + startQ}"><strong> ${i + startQ}:</strong> `;
+    const shuffledIndices = getShuffledIndices(questionNumber);
+
+    for (let i = 0; i < questionNumber; i++) {
+        const questionIndex = shuffledIndices[i];
+        answerSheetHTML += `<div id="question${questionIndex + startQ}"><strong> ${questionIndex + startQ}:</strong> `;
         for (let j = 0; j < 4; j++) {
             const option = String.fromCharCode(97 + j);
-            answerSheetHTML += `<div class="option" onclick="selectOption(this, '${option}', ${i})">${option}</div>`;
+            answerSheetHTML += `<div class="option" onclick="selectOption(this, '${option}', ${questionIndex})">${option}</div>`;
         }
         answerSheetHTML += `</div>`;
     }
@@ -215,171 +225,73 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-
 async function submitAnswers() {
-    const idToHide = document.getElementById('submittext');
     if (!isAutomaticSubmission) {
-        const confirmed = await showCustomConfirm("Are you sure you want to submit your answers? You won't be able to change them later.");
-        if (!confirmed) return;
+        const confirmed = await showCustomConfirm("Are you sure you want to submit your answers?");
+        if (!confirmed) {
+            return;
+        }
     }
-    if (answersSubmitted) return;
+
     answersSubmitted = true;
-    clearInterval(countdownTimer);
     endTime = new Date().toLocaleString();
-    idToHide.style.display = 'none';
-    const selectedOptions = document.querySelectorAll('.option.selected');
-    const correctAnswers = gucco1.split('');
-    let totalMarks = 0;
-    let answeredQuestions = [];
+    clearInterval(countdownTimer);
+    let score = 0;
+    let correctAnswers = 0;
+    let incorrectAnswers = 0;
+    let missedQuestions = 0;
+    const answers = [];
+    const correctAnswersKey = {};
 
-    selectedOptions.forEach(option => {
-        const selectedLetter = option.textContent.trim();
-        const correctLetter = correctAnswers[option.dataset.questionNumber - 1].trim();
-        const questionNumber = parseInt(option.dataset.questionNumber);
-        if (selectedLetter === correctLetter) {
-            option.classList.add('correct');
-            totalMarks += 1;
-        } else {
-            option.classList.add('incorrect');
-            totalMarks -= 0.25;
-        }
-        option.classList.remove('selected');
-        answeredQuestions.push(questionNumber);
-    });
+    // Prepare the correct answers key
+    const shuffledIndices = getShuffledIndices(totalCount);
+    for (let i = 0; i < totalCount; i++) {
+        const questionIndex = shuffledIndices[i];
+        correctAnswersKey[questionIndex] = answerSheet[questionIndex];
+    }
 
+    // Collect and evaluate answers
     for (let i = 1; i <= totalCount; i++) {
-        if (!answeredQuestions.includes(i)) {
-            const questionDiv = document.getElementById(`question${i}`);
-            questionDiv.innerHTML += `<div class="option skip">skipped</div>`;
+        const questionElement = document.getElementById(`question${i + startQnumber - 1}`);
+        const selectedOption = questionElement.querySelector('.option.selected');
+        if (selectedOption) {
+            const selectedAnswer = selectedOption.innerText;
+            answers.push(selectedAnswer);
+            const questionNumber = parseInt(selectedOption.dataset.questionNumber, 10);
+            if (correctAnswersKey[questionNumber] === selectedAnswer) {
+                score += 5;
+                correctAnswers++;
+            } else {
+                score -= 1;
+                incorrectAnswers++;
+            }
+        } else {
+            answers.push('-');
+            missedQuestions++;
         }
     }
-    
-    scrollToTop();
+
+    const correctScore = formatNumber(correctAnswers);
+    const incorrectScore = formatNumber(incorrectAnswers);
+    const missedScore = formatNumber(missedQuestions);
+
+    let resultHTML = `<h2>Answer Summary</h2>`;
+    resultHTML += `<p>Total Questions: ${totalCount}</p>`;
+    resultHTML += `<p>Correct Answers: ${correctScore}</p>`;
+    resultHTML += `<p>Incorrect Answers: ${incorrectScore}</p>`;
+    resultHTML += `<p>Missed Questions: ${missedScore}</p>`;
+    resultHTML += `<p>Score: ${score}</p>`;
+    resultHTML += `<p>Start Time: ${startTime}</p>`;
+    resultHTML += `<p>End Time: ${endTime}</p>`;
+    resultHTML += `<h3>Detailed Answers:</h3>`;
+
+    for (let i = 0; i < totalCount; i++) {
+        const questionIndex = shuffledIndices[i];
+        resultHTML += `<p>Question ${i + 1 + startQnumber - 1}: Your Answer - ${answers[i]}, Correct Answer - ${correctAnswersKey[questionIndex]}</p>`;
+    }
+
+    document.getElementById('answerSheet').innerHTML = resultHTML;
+    document.getElementById('submittext').style.display = 'none';
     document.getElementById('originalMarks').style.display = 'block';
-    // let output = "Marks: " + totalMarks.toFixed(2) + "/" + totalCount;
-    let output = "Marks: " + formatNumber(totalMarks) + "/" + totalCount;
-
-
-    
-    document.getElementById("originalMarks").textContent = output;
-
-    const original_marks = (totalMarks * 100) / totalCount;
-    // const actual_marks = original_marks.toFixed(2);
-    const actual_marks =formatNumber(original_marks);
-    const feedbackMessage = getFeedbackMessage(actual_marks);
-    const feedbackElement = document.createElement('div');
-    feedbackElement.textContent = feedbackMessage;
-    feedbackElement.classList.add('feedback-message');
-    const answerSheetContainer = document.getElementById('answerSheet');
-    answerSheetContainer.appendChild(feedbackElement);
-    const justifyUser = document.createElement('div');
-    justifyUser.innerHTML = "Start Time: " + startTime + "<br>" + "Submit Time: " + endTime;
-    justifyUser.classList.add('justifyUserDesign');
-    const justifyUserContainer = document.getElementById('answerSheet');
-    justifyUserContainer.appendChild(justifyUser);
-    const scratches = document.createElement('div');
-    scratches.classList.add('scratches');
-    justifyUser.appendChild(scratches);
-
-    console.log(correctAnswers.length);
-    const options = document.querySelectorAll('.option');
-    options.forEach(opt => opt.onclick = null);
-    const startQ = startQnumber;
-
-
-
-    // for (let i = 1; i <= correctAnswers.length; i++) {
-    //     const correctLetter = correctAnswers[i - 1].trim();
-    //     const questionDiv = document.getElementById(`question${i + startQ}`);
-    //     const options = questionDiv.querySelectorAll('.option');
-    //     options.forEach(option => {
-    //         if (option.textContent.trim() === correctLetter) {
-    //             option.classList.add('correctAnswer');
-    //         }
-    //     });
-    // }
-    for (let i = 1; i <= correctAnswers.length; i++) {
-        const correctLetter = correctAnswers[i - 1];
-        const questionDiv = document.getElementById(`question${i+startQ}`);
-        questionDiv.innerHTML += `<div class="correct-answer">Correct Answer: ${correctLetter}</div>`;
-    }
-
-
-
-
-
-
-    if (isAutomaticSubmission) {
-        await showCustomAlert("Time's up! Your answers have been automatically submitted.");
-    } else {
-        await showCustomAlert("Your answers have been successfully submitted.");
-    }
-
-    
-window.onbeforeunload = function () {
-    if (answersSubmitted) {
-        return "You have already submitted your answers. Are you sure you want to leave?";
-    }
-    if (!answersSubmitted) {
-        return "Are you sure you want to leave? Your answers will be lost.";
-    }
-};
-
+    scrollToTop();
 }
-
-
-
-
-
-
-
-// function getFeedbackMessage(score) {
-//     if (score === 100) {
-//         return "Excellent! You got all the answers correct!";
-//     } else if (score >= 80) {
-//         return "Great job! You have a strong understanding of the material.";
-//     } else if (score >= 60) {
-//         return "Good effort! There's still room for improvement.";
-//     } else if (score >= 40) {
-//         return "You passed, but consider reviewing the material.";
-//     } else {
-//         return "You did not pass. It might help to go over the material again.";
-//     }
-// }
-
-
-function getFeedbackMessage(marks) {
-    if (marks >= 85 && marks <= 100) {
-        return `You will top in any national level exam InshaAllah. You Obtained: ${marks}/100`;
-    } else if (marks >= 75 && marks < 85) {
-        return `Keep going, you're doing well. At least you will get a good subject in university exams InshaAllah! You obtained: ${marks}/100`;
-    } else if (marks >= 50 && marks < 75) {
-        return `You can do better, keep practicing. Have to do better! You obtained: ${marks}/100`;
-    } else {
-        return `Don't give up, keep working hard! Your Position is not good. You obtained: ${marks}/100`;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-function hideAll() {
-    // document.getElementById('noteIt').style.display = 'none';
-    document.getElementById('generatedText').style.display = 'none';
-}
-
-window.onbeforeunload = function () {
-    if (answersSubmitted) {
-        return "You have already submitted your answers. Are you sure you want to leave?";
-    }
-    if (!answersSubmitted) {
-        return "Are you sure you want to leave? Your answers will be lost.";
-    }
-};
-
