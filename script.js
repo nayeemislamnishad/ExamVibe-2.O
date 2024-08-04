@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     ddddd.style.fontSize = "20px";
     ddddd.style.padding = "3px";
     ddddd.addEventListener("mouseenter", function () {
-        ddddd.style.backgroundColor = "gold"; // Change background color on hover
-        ddddd.style.color = "black";          // Change text color on hover
+        ddddd.style.backgroundColor = "gold"; 
+        ddddd.style.color = "black";         
     });
 
     window.onbeforeunload = function () {
@@ -97,7 +97,6 @@ function startReviseTimer() {
     const timeInSeconds = questionNumber * timePerQuestion;
     const timeInMinutes = timeInSeconds / 60;
     const timerDuration = customRound(timeInMinutes);
-    console.log(timerDuration);
     const resultDiv = document.getElementById('minuteGarbage');
     resultDiv.textContent = `${timerDuration} minutes`;
 
@@ -137,30 +136,63 @@ function customRound(number) {
     }
 }
 
+
+function getRandomNumber(min,max){
+    return Math.floor(Math.random() * (max-min+1)) + min; 
+}
+// const questionNumber = gucco1.length;
+
+
+let randomNumberforNextuse;
+let randomNumberforfurtheruse;
+
+let serialMustBeFollow=[];
+
 function startExam() {
     
     const questionNumber = gucco1.length;
+    const numberx=questionNumber/2;
+    const numberxx= Math.ceil(numberx)+1;
+
+    const numbery=questionNumber/3;
+    const numberyy= Math.floor(numbery+1);
+    let randomNumber = getRandomNumber(numberyy,numberxx);
+    randomNumberforNextuse= randomNumber;
+    randomNumberforfurtheruse=randomNumber;
+    randomNumberforNextuses= randomNumber;
+    randomNumberforfurtheruses=randomNumber;
     const startQ = startQnumber;
     const timePerQuestion = parseInt(document.getElementById('timePerQuestion').value, 10);
     const timeInSeconds = questionNumber * timePerQuestion;
     const timeInMinutes = timeInSeconds / 60;
     const timerDuration = customRound(timeInMinutes);
-    console.log(timerDuration);
     const resultDiv = document.getElementById('minuteGarbage');
     resultDiv.textContent = `${timerDuration} minutes`;
     startTime = new Date().toLocaleString();
     let answerSheetHTML = '<h2>OMR Answer Sheet</h2>';
 
-    
+    for ( ; randomNumber <= questionNumber; randomNumber++) {
+        answerSheetHTML += `<div id="question${randomNumber + startQ}"><strong> ${randomNumber + startQ}:</strong> `;
+        for (let j = 0; j < 4; j++) {
+            const option = String.fromCharCode(97 + j);
+            answerSheetHTML += `<div class="option" onclick="selectOption(this, '${option}', ${randomNumber + startQ})">${option}</div>`;
+        }
+        answerSheetHTML += `</div>`;
+        console.log("serial og questions", randomNumber);
+        serialMustBeFollow.push(randomNumber);
+    }
 
-    for (let i = 1; i <= questionNumber; i++) {
+    for (let i=1 ; i < randomNumberforNextuse; i++) {
         answerSheetHTML += `<div id="question${i + startQ}"><strong> ${i + startQ}:</strong> `;
         for (let j = 0; j < 4; j++) {
             const option = String.fromCharCode(97 + j);
             answerSheetHTML += `<div class="option" onclick="selectOption(this, '${option}', ${i + startQ})">${option}</div>`;
         }
         answerSheetHTML += `</div>`;
+        console.log("serial og questions", i);
+        serialMustBeFollow.push(i);
     }
+
     document.getElementById('answerSheet').innerHTML = answerSheetHTML;
     hideAll();
     document.getElementById('submittext').style.display = 'block';
@@ -175,39 +207,25 @@ function startExam() {
     totalCount = parseInt(questionNumber);
 }
 
-// function selectOption(option, letter, questionNumber) {
-//     if (answersSubmitted) return;
-
-//     // Get all options for the current question
-//     const options = option.parentNode.querySelectorAll('.option');
-    
-//     // If an option is already selected, do nothing
-//     if (option.classList.contains('selected')) return;
-
-//     // Disable all options for this question
-//     options.forEach(opt => {
-//         opt.classList.remove('selected');
-//         opt.onclick = null; // Disable click for all options
-//     });
-
-//     // Add 'selected' class to the clicked option
-//     option.classList.add('selected');
-//     option.dataset.questionNumber = questionNumber;
-//     console.log(`Selected option ${letter} for Question ${questionNumber}`);
-// }
-
-
-
-
 // Initialize a global array to store selected options
-const selectedOptionss = [];
+
+
+
+
+
+
+
+ const selectedOptionss = [];
+ let currentIndex = 0;  // Keeps track of the current position in the serialMustBeFollow array
+// let serialMustBeFollow = [1, 3, 5, 2, 4];  // Example array of question indexes
 
 function selectOption(option, letter, questionNumber) {
-    if (answersSubmitted) return;
+    // Check if the current question matches the one to be answered according to the array
+    if (answersSubmitted || questionNumber !== serialMustBeFollow[currentIndex]) return;
 
     // Get all options for the current question
     const options = option.parentNode.querySelectorAll('.option');
-    
+
     // If the clicked option is already selected, do nothing
     if (option.classList.contains('selected')) return;
 
@@ -226,8 +244,47 @@ function selectOption(option, letter, questionNumber) {
 
     // Log the selected option and update the array
     console.log(`Selected option ${letter} for Question ${questionNumber}`);
-    console.log('Selected options array:', selectedOptionss);
+
+    // Move to the next question in the array
+    currentIndex++;
+
+    // If all questions are answered, enable the submit button
+    if (currentIndex >= serialMustBeFollow.length) {
+        document.getElementById('submittext').disabled = false;
+    }
 }
+
+
+// function selectOption(option, letter, questionNumber) {
+//     if (answersSubmitted) return;
+
+//     // Get all options for the current question
+//     const options = option.parentNode.querySelectorAll('.option');
+    
+//     // If the clicked option is already selected, do nothing
+//     if (option.classList.contains('selected')) return;
+
+//     // Disable all options for this question
+//     options.forEach(opt => {
+//         opt.classList.remove('selected');
+//         opt.onclick = null; // Disable click for all options
+//     });
+
+//     // Add 'selected' class to the clicked option
+//     option.classList.add('selected');
+//     option.dataset.questionNumber = questionNumber;
+
+//     // Save the selected option and question number
+//     selectedOptionss.push({ letter, questionNumber });
+
+//     // Log the selected option and update the array
+//     console.log(`Selected option ${letter} for Question ${questionNumber}`);
+// }
+
+
+
+
+
 
 
 
@@ -264,17 +321,9 @@ async function submitAnswers() {
     let answeredQuestions = [];
 
     selectedOptions.forEach(option => {
-       
         const selectedLetter = option.textContent.trim();
-       
-          const correctLetter = correctAnswers[option.dataset.questionNumber - startQnumber -1 ].trim();
-        
+        const correctLetter = correctAnswers[option.dataset.questionNumber - startQnumber -1 ].trim();
         const questionNumber = parseInt(option.dataset.questionNumber - startQnumber );
-
-
-        console.log(`Question Number: ${questionNumber}`);
-        console.log(`Selected Letter: ${selectedLetter}`);
-        console.log(`Correct Letter: ${correctLetter}`);
 
         if (selectedLetter === correctLetter) {
             option.classList.add('correct');
@@ -287,16 +336,20 @@ async function submitAnswers() {
         answeredQuestions.push(questionNumber);
     });
 
-    for (let i = 1; i <= totalCount; i++) {
+    for ( ; randomNumberforNextuse <= totalCount; randomNumberforNextuse++) {
+        if (!answeredQuestions.includes(randomNumberforNextuse)) {
+            const questionDiv = document.getElementById(`question${randomNumberforNextuse}`);
+            questionDiv.innerHTML += `<div class="option skip">skipped</div>`;
+        }
+    }
+    for (let i=1 ; i < randomNumberforNextuses; i++) {
         if (!answeredQuestions.includes(i)) {
             const questionDiv = document.getElementById(`question${i}`);
             questionDiv.innerHTML += `<div class="option skip">skipped</div>`;
         }
     }
-     console.log(selectedOptionss);
-     selectedOptionss.sort((a, b) => a.questionNumber - b.questionNumber);
-     console.log(selectedOptionss);
 
+     selectedOptionss.sort((a, b) => a.questionNumber - b.questionNumber);
     scrollToTop();
     document.getElementById('originalMarks').style.display = 'block';
     let output = "Marks: " + formatNumber(totalMarks) + "/" + totalCount;
@@ -319,16 +372,23 @@ async function submitAnswers() {
     scratches.classList.add('scratches');
     justifyUser.appendChild(scratches);
 
-    console.log(correctAnswers.length);
+    
     const options = document.querySelectorAll('.option');
     options.forEach(opt => opt.onclick = null);
     const startQ = startQnumber;
 
-    for (let i = 1; i <= correctAnswers.length; i++) {
+    
+    for (; randomNumberforfurtheruse <= correctAnswers.length; randomNumberforfurtheruse++) {
+        const correctLetter = correctAnswers[randomNumberforfurtheruse - 1];
+        const questionDiv = document.getElementById(`question${randomNumberforfurtheruse + startQ}`);
+        questionDiv.innerHTML += `<div class="correct-answer">Correct Answer: ${correctLetter}</div>`;
+    }
+    for (let i=1; i < randomNumberforfurtheruses; i++) {
         const correctLetter = correctAnswers[i - 1];
         const questionDiv = document.getElementById(`question${i + startQ}`);
         questionDiv.innerHTML += `<div class="correct-answer">Correct Answer: ${correctLetter}</div>`;
     }
+
 
     if (isAutomaticSubmission) {
         await showCustomAlert("Time's up! Your answers have been automatically submitted.");
@@ -370,3 +430,16 @@ window.onbeforeunload = function () {
         return "Are you sure you want to leave? Your answers will be lost.";
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
