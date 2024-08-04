@@ -238,7 +238,7 @@ button:hover {
 .correct-answer {
     margin-top: 5px;
     color: rgb(31, 226, 31); /* Green color for correct answer */
-    font-weight: bold;
+    font-weight: 600;
 }
 
 /* Updated styles to differentiate correct answer */
@@ -246,7 +246,7 @@ button:hover {
 .correct-answer {
     margin-top: 5px;
     color: green; /* Green color for correct answer */
-    font-weight: bold;
+    font-weight: 600;
 }
 
 /* Updated styles to create bubble circles with letters centered inside */
