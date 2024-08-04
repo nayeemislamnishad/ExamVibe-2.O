@@ -5,16 +5,19 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('timer').style.display = 'none';
     document.getElementById('originalMarks').style.display = 'none';
     var ddddd = document.getElementById('generatedText');
-    ddddd.style.border = "solid 2px #0a147b42";
-    ddddd.style.background = "skyblue";
+    ddddd.style.border = "solid 1px black";
+    ddddd.style.background = "white";
+    ddddd.style.color="black";
     ddddd.style.borderRadius = "20px";
     ddddd.style.width = "60%";
     ddddd.style.height = "50px";
     ddddd.style.fontSize = "20px";
     ddddd.style.padding = "3px";
+    ddddd.style.fontWeight="normal";
     ddddd.addEventListener("mouseenter", function () {
-        ddddd.style.backgroundColor = "gold"; 
-        ddddd.style.color = "black";         
+        ddddd.style.backgroundColor = "black"; 
+        ddddd.style.color = "white";    
+        ddddd.style.fontWeight="normal";     
     });
 
     window.onbeforeunload = function () {
@@ -169,7 +172,7 @@ function startExam() {
     const resultDiv = document.getElementById('minuteGarbage');
     resultDiv.textContent = `${timerDuration} minutes`;
     startTime = new Date().toLocaleString();
-    let answerSheetHTML = '<h2>OMR Answer Sheet</h2>';
+    let answerSheetHTML = '<h2>OMR Answer Sheet: </h2>';
 
     for ( ; randomNumber <= questionNumber; randomNumber++) {
         answerSheetHTML += `<div id="question${randomNumber + startQ}"><strong> ${randomNumber + startQ}:</strong> `;
@@ -198,7 +201,8 @@ function startExam() {
     document.getElementById('submittext').style.display = 'block';
     var designSb = document.getElementById("submittext");
     designSb.style.fontSize = "20px";
-    designSb.style.border = "solid 2px #0dc722";
+    designSb.style.border = "solid 1px black";
+    
     designSb.style.borderRadius = "20px";
     document.getElementById('answerSheet').style.display = 'block';
     document.getElementById('timer').style.display = 'block';
