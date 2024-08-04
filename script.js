@@ -3,12 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('submittext').style.display = 'none';
     document.getElementById('answerSheet').style.display = 'none';
     document.getElementById('timer').style.display = 'none';
-    document.getElementById('originalMarks').style.display = 'none';
+    document.getElementById('headerBox').style.display = 'none';
+    
     var ddddd = document.getElementById('generatedText');
     ddddd.style.border = "solid 1px black";
     ddddd.style.background = "white";
     ddddd.style.color="black";
-    ddddd.style.borderRadius = "20px";
+    ddddd.style.borderRadius = "23px";
     ddddd.style.width = "60%";
     ddddd.style.height = "50px";
     ddddd.style.fontSize = "20px";
@@ -31,7 +32,9 @@ let totalCount = 0;
 let answersSubmitted = false;
 let countdownTimer;
 let startTime;
+let startTimee;
 let endTime;
+let endTimee;
 let isAutomaticSubmission = false;
 
 // Custom Alert
@@ -171,6 +174,7 @@ function startExam() {
     const timerDuration = customRound(timeInMinutes);
     const resultDiv = document.getElementById('minuteGarbage');
     resultDiv.textContent = `${timerDuration} minutes`;
+    startTimee = new Date();
     startTime = new Date().toLocaleString();
     let answerSheetHTML = '<h2>OMR Answer Sheet: </h2>';
 
@@ -203,7 +207,7 @@ function startExam() {
     designSb.style.fontSize = "20px";
     designSb.style.border = "solid 1px black";
     
-    designSb.style.borderRadius = "20px";
+    designSb.style.borderRadius = "23px";
     document.getElementById('answerSheet').style.display = 'block';
     document.getElementById('timer').style.display = 'block';
     const timerDisplay = document.getElementById('timer');
@@ -317,6 +321,7 @@ async function submitAnswers() {
     if (answersSubmitted) return;
     answersSubmitted = true;
     clearInterval(countdownTimer);
+    endTimee = new Date();
     endTime = new Date().toLocaleString();
     idToHide.style.display = 'none';
     const selectedOptions = document.querySelectorAll('.option.selected');
@@ -356,25 +361,59 @@ async function submitAnswers() {
      selectedOptionss.sort((a, b) => a.questionNumber - b.questionNumber);
     scrollToTop();
     document.getElementById('originalMarks').style.display = 'block';
-    let output = "Marks: " + formatNumber(totalMarks) + "/" + totalCount;
-    document.getElementById("originalMarks").textContent = output;
+    //  let output = "You Actually Optained: " + formatNumber(totalMarks) + "/" + totalCount;
+    
+    // document.getElementById("originalMarks").textContent = output;
+    let output = "✅You Actually Obtained:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + formatNumber(totalMarks) + "/" + totalCount;
+    document.getElementById("originalMarks").innerHTML = output;
+    
+
+
+
+
+
 
     const original_marks = (totalMarks * 100) / totalCount;
     const actual_marks = formatNumber(original_marks);
+
+
+
+    document.getElementById('headerBox').style.display = 'block';
+    let outputt = "✅You Optained out of 100: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + formatNumber(actual_marks) + "/" + 100;
+    document.getElementById("originalMarkss").innerHTML = outputt;
+
+    // document.getElementById('originalMarksss').style.display = 'block';
     const feedbackMessage = getFeedbackMessage(actual_marks);
-    const feedbackElement = document.createElement('div');
-    feedbackElement.textContent = feedbackMessage;
-    feedbackElement.classList.add('feedback-message');
-    const answerSheetContainer = document.getElementById('answerSheet');
-    answerSheetContainer.appendChild(feedbackElement);
-    const justifyUser = document.createElement('div');
+    document.getElementById("originalMarksss").innerHTML = feedbackMessage;
+
+
+
+
+    let timeDiff = endTimee - startTimee;
+    // Convert the difference to seconds and minutes
+    let secondsss = Math.floor((timeDiff / 1000) % 60);
+    let minutesss = Math.floor((timeDiff / (1000 * 60)) % 60);
+
+    let outputttt = "✅Time used :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + minutesss  + " min"+"&nbsp;&nbsp;&nbsp;" + secondsss + " sec";
+    document.getElementById("originalMarkssss").innerHTML = outputttt;
+
+
+    //  const original_marks = (totalMarks * 100) / totalCount;
+    //  const actual_marks = formatNumber(original_marks);
+    //  const feedbackMessage = getFeedbackMessage(actual_marks);
+    // const feedbackElement = document.createElement('div');
+    // feedbackElement.textContent = feedbackMessage;
+    // feedbackElement.classList.add('feedback-message');
+    // const answerSheetContainer = document.getElementById('answerSheet');
+    // answerSheetContainer.appendChild(feedbackElement);
+    //  const justifyUser = document.createElement('div');
     justifyUser.innerHTML = "Start Time: " + startTime + "<br>" + "Submit Time: " + endTime;
-    justifyUser.classList.add('justifyUserDesign');
-    const justifyUserContainer = document.getElementById('answerSheet');
-    justifyUserContainer.appendChild(justifyUser);
-    const scratches = document.createElement('div');
-    scratches.classList.add('scratches');
-    justifyUser.appendChild(scratches);
+    // justifyUser.classList.add('justifyUserDesign');
+    // const justifyUserContainer = document.getElementById('answerSheet');
+    // justifyUserContainer.appendChild(justifyUser);
+    // const scratches = document.createElement('div');
+    // scratches.classList.add('scratches');
+    // justifyUser.appendChild(scratches);
 
     
     const options = document.querySelectorAll('.option');
@@ -412,13 +451,13 @@ async function submitAnswers() {
 
 function getFeedbackMessage(marks) {
     if (marks >= 85 && marks <= 100) {
-        return `You will top in any national level exam InshaAllah. You Obtained: ${marks}/100`;
+        return `✅Performance:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Very good`;
     } else if (marks >= 75 && marks < 85) {
-        return `Keep going, you're doing well. At least you will get a good subject in university exams InshaAllah! You obtained: ${marks}/100`;
+        return `✅Performance:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Good`;
     } else if (marks >= 50 && marks < 75) {
-        return `You can do better, keep practicing. Have to do better! You obtained: ${marks}/100`;
+        return `✅Performance:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Need to improve`;
     } else {
-        return `Don't give up, keep working hard! Your Position is not good. You obtained: ${marks}/100`;
+        return `✅Performance:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Very Bad`;
     }
 }
 
