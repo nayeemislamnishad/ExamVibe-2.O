@@ -288,21 +288,20 @@ button:hover {
     position: fixed;
     width: 100%;
     top: 0;
-    background-color:#0116a5;
-    background-color: black;
+    background-color: #0116a5;
+    background-color: #9ddfff;
     font-family: "Jost", sans-serif;
     opacity: 1;
-    color: white;
-    /* border: solid 2px #0a147b42; */
+    color: black;
+    border: solid 1px black;
     border-top: 0px;
     padding: 5px;
     text-align: center;
     font-weight: bold;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     width: 22%;
     left: 38%;
-    
 }
 
 
