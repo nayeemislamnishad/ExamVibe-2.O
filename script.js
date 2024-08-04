@@ -407,7 +407,7 @@ async function submitAnswers() {
     // const answerSheetContainer = document.getElementById('answerSheet');
     // answerSheetContainer.appendChild(feedbackElement);
     //  const justifyUser = document.createElement('div');
-    justifyUser.innerHTML = "Start Time: " + startTime + "<br>" + "Submit Time: " + endTime;
+    // justifyUser.innerHTML = "Start Time: " + startTime + "<br>" + "Submit Time: " + endTime;
     // justifyUser.classList.add('justifyUserDesign');
     // const justifyUserContainer = document.getElementById('answerSheet');
     // justifyUserContainer.appendChild(justifyUser);
