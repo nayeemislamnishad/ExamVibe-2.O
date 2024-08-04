@@ -25,14 +25,18 @@
     }
     .custom-alert .alert-content, .custom-confirm .confirm-content {
         margin-bottom: 20px;
+        font-size: 15px;
     }
     .custom-alert .alert-button, .custom-confirm .confirm-button {
         display: block;
         margin: 0 auto;
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: white;
+        padding: 5px 20px;
+        /* background-color: #007bff;
+        color: white; */
+        background-color: white;
+        color: black;
         border: none;
+        border: solid 1px black;
         cursor: pointer;
     }
     .custom-confirm .confirm-buttons {
@@ -118,7 +122,13 @@ input[type="text"]:focus {
     <br><br>
     <div id="timer"></div>
     <div class="container">
-        <h2 id="originalMarks"></h2>
+        <div id="headerBox">
+            <h4 id="originalMarks" class="common-style"></h4> <hr>
+            <h4 id="originalMarkss" class="common-style"></h4> <hr>
+            <h4 id="originalMarksss" class="common-style"></h4><hr>
+            <h4 id="originalMarkssss" class="common-style"></h4>
+        </div>
+        
 
 
         <!-- <div id="needToKnow">    in case of reverse
