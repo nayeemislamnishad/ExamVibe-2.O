@@ -106,7 +106,7 @@ function startReviseTimer() {
     const resultDiv = document.getElementById('minuteGarbage');
     resultDiv.textContent = `${timerDuration} minutes`;
 
-    let timeLeft =1;
+    let timeLeft =60;
     const timerElement = document.getElementById('timer');
     const submitButton = document.getElementById('generatedText');
 
