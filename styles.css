@@ -59,6 +59,9 @@ button:hover {
     border: 1px solid #ccc;
     border-radius: 4px;
     text-align: left;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2 4px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -626,4 +629,47 @@ hr {
         font-size: 20px;
         margin-top: 2px;
     }
+}
+
+
+/* Container styling */
+#headerBox {
+    /* width: 100%; */
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   
+}
+/* Flexbox layout for aligning label and value */
+.info-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px; /* Space between each info-box */
+}
+
+/* Styling for labels and values */
+.label {
+    font-family: 'Arial', sans-serif;
+    font-family: "Jost", sans-serif;
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+}
+
+.value {
+    font-family: 'Arial', sans-serif;
+    font-family: "Jost", sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+    color: #007bff; /* Blue color to highlight the value */
+    margin: 0;
+}
+
+/* Optional: add a line separator between items */
+.info-box:not(:last-child) {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
 }
