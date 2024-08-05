@@ -217,7 +217,11 @@ function startExam() {
     resultDiv.textContent = `${timerDuration} minutes`;
     startTimee = new Date();
     startTime = new Date().toLocaleString();
-    let answerSheetHTML = '<h2>OMR Answer Sheet: </h2>';
+      let answerSheetHTML = '<h2>OMR Answer Sheet: </h2>';
+    
+
+
+    
 
     for ( ; randomNumber <= questionNumber; randomNumber++) {
         answerSheetHTML += `<div id="question${randomNumber + startQ}"><strong> ${randomNumber + startQ}:</strong> `;
@@ -365,60 +369,30 @@ async function submitAnswers() {
 
      selectedOptionss.sort((a, b) => a.questionNumber - b.questionNumber);
     scrollToTop();
+
+
+
     document.getElementById('originalMarks').style.display = 'block';
-    //  let output = "You Actually Optained: " + formatNumber(totalMarks) + "/" + totalCount;
-    
-    // document.getElementById("originalMarks").textContent = output;
-    let output = "✅You Actually Obtained:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + formatNumber(totalMarks) + "/" + totalCount;
+    let output =  formatNumber(totalMarks) + "/" + totalCount;
     document.getElementById("originalMarks").innerHTML = output;
-    
-
-
-
-
-
-
     const original_marks = (totalMarks * 100) / totalCount;
     const actual_marks = formatNumber(original_marks);
-
-
-
     document.getElementById('headerBox').style.display = 'block';
-    let outputt = "✅You Optained out of 100: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + formatNumber(actual_marks) + "/" + 100;
+    let outputt =  formatNumber(actual_marks) + "/" + 100;
     document.getElementById("originalMarkss").innerHTML = outputt;
-
-    // document.getElementById('originalMarksss').style.display = 'block';
     const feedbackMessage = getFeedbackMessage(actual_marks);
     document.getElementById("originalMarksss").innerHTML = feedbackMessage;
-
-
-
-
     let timeDiff = endTimee - startTimee;
     // Convert the difference to seconds and minutes
     let secondsss = Math.floor((timeDiff / 1000) % 60);
     let minutesss = Math.floor((timeDiff / (1000 * 60)) % 60);
-
-    let outputttt = "✅Time used :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + minutesss  + " min"+"&nbsp;&nbsp;&nbsp;" + secondsss + " sec";
+     let outputttt =  minutesss  + " min"+"&nbsp;&nbsp;&nbsp;" + secondsss + " sec";
     document.getElementById("originalMarkssss").innerHTML = outputttt;
 
 
-    //  const original_marks = (totalMarks * 100) / totalCount;
-    //  const actual_marks = formatNumber(original_marks);
-    //  const feedbackMessage = getFeedbackMessage(actual_marks);
-    // const feedbackElement = document.createElement('div');
-    // feedbackElement.textContent = feedbackMessage;
-    // feedbackElement.classList.add('feedback-message');
-    // const answerSheetContainer = document.getElementById('answerSheet');
-    // answerSheetContainer.appendChild(feedbackElement);
-    //  const justifyUser = document.createElement('div');
-    // justifyUser.innerHTML = "Start Time: " + startTime + "<br>" + "Submit Time: " + endTime;
-    // justifyUser.classList.add('justifyUserDesign');
-    // const justifyUserContainer = document.getElementById('answerSheet');
-    // justifyUserContainer.appendChild(justifyUser);
-    // const scratches = document.createElement('div');
-    // scratches.classList.add('scratches');
-    // justifyUser.appendChild(scratches);
+
+
+
 
     
     const options = document.querySelectorAll('.option');
@@ -456,13 +430,13 @@ async function submitAnswers() {
 
 function getFeedbackMessage(marks) {
     if (marks >= 85 && marks <= 100) {
-        return `✅Performance:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Very good`;
+        return `Very good`;
     } else if (marks >= 75 && marks < 85) {
-        return `✅Performance:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Good`;
+        return `Good`;
     } else if (marks >= 50 && marks < 75) {
-        return `✅Performance:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Need to improve`;
+        return `Need to improve`;
     } else {
-        return `✅Performance:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Very Bad`;
+        return `Very Bad`;
     }
 }
 
