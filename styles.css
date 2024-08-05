@@ -185,7 +185,7 @@ button:hover {
 }
 
 .option.selected {
-    background-color: #007bff;
+    background-color: #001fff;
     color: #fff;
 }
 
@@ -194,11 +194,13 @@ button:hover {
 }
 
 .correct {
-    background-color: #7fff7f; /* Green */
+    background-color: #00d700;
+    color: white;
 }
 
 .incorrect {
-    background-color:#FF5733; /* Red */
+    background-color:#D2122E; /* Red */
+    color: white;
 }
 .correct-answer {
     background-color: #7fff7f; /* Green */
