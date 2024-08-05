@@ -61,11 +61,43 @@ function showCustomConfirm(message) {
     });
 }
 
+// function startTimer(duration, display) {
+//     document.getElementById('answers').style.display = 'none';
+//     document.getElementById('needTag').style.display = 'none';
+//     document.getElementById('numberInput').style.display = 'none';
+//     document.getElementById('numberInputText').style.display = 'none';
+
+//     let timer = duration, minutes, seconds;
+//     countdownTimer = setInterval(function () {
+//         minutes = parseInt(timer / 60, 10);
+//         seconds = parseInt(timer % 60, 10);
+//         minutes = minutes < 10 ? "0" + minutes : minutes;
+//         seconds = seconds < 10 ? "0" + seconds : seconds;
+//         // display.textContent ="Remaining:"+ minutes +":"  + seconds ;
+//         display.innerHTML = `<span style="font-weight:normal; color: white;">Remaining:</span> ${minutes}:${seconds}`;
+//         if (--timer < 0) {
+//             clearInterval(countdownTimer);
+//             isAutomaticSubmission = true;
+//             submitAnswers();
+//         }
+//     }, 1000);
+// }
+
 function startTimer(duration, display) {
+    // Hide unnecessary elements
     document.getElementById('answers').style.display = 'none';
     document.getElementById('needTag').style.display = 'none';
     document.getElementById('numberInput').style.display = 'none';
     document.getElementById('numberInputText').style.display = 'none';
+
+    // Get the current time (start time)
+    const startTime = new Date();
+    const endTime = new Date(startTime.getTime() + duration * 1000); // Calculate end time by adding duration (in ms)
+
+    // Format time to display (HH:MM AM/PM)
+    const formatTime = (time) => {
+        return time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    };
 
     let timer = duration, minutes, seconds;
     countdownTimer = setInterval(function () {
@@ -73,7 +105,15 @@ function startTimer(duration, display) {
         seconds = parseInt(timer % 60, 10);
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
-        display.textContent = minutes + ":" + seconds;
+
+        // Display remaining time along with start and end times
+        display.innerHTML = `
+            <span style="font-weight: normal; color: white;">Remaining:</span> ${minutes}:${seconds}
+            <br>
+            <span style="font-weight: normal; color: white;font-size:16px;">Start: ${formatTime(startTime)} </span>
+            <span style="font-weight: normal; color: white;font-size:16px;">- End: ${formatTime(endTime)}  </span>
+        `;
+
         if (--timer < 0) {
             clearInterval(countdownTimer);
             isAutomaticSubmission = true;
@@ -81,6 +121,7 @@ function startTimer(duration, display) {
         }
     }, 1000);
 }
+
 
 async function generateAnswerSheet() {
     const confirmed = await showCustomConfirm("Are you sure you want to generate the answer sheet?");
@@ -106,7 +147,7 @@ function startReviseTimer() {
     const resultDiv = document.getElementById('minuteGarbage');
     resultDiv.textContent = `${timerDuration} minutes`;
 
-    let timeLeft =60;
+    let timeLeft =0;
     const timerElement = document.getElementById('timer');
     const submitButton = document.getElementById('generatedText');
 
@@ -261,42 +302,6 @@ function selectOption(option, letter, questionNumber) {
         document.getElementById('submittext').disabled = false;
     }
 }
-
-
-// function selectOption(option, letter, questionNumber) {
-//     if (answersSubmitted) return;
-
-//     // Get all options for the current question
-//     const options = option.parentNode.querySelectorAll('.option');
-    
-//     // If the clicked option is already selected, do nothing
-//     if (option.classList.contains('selected')) return;
-
-//     // Disable all options for this question
-//     options.forEach(opt => {
-//         opt.classList.remove('selected');
-//         opt.onclick = null; // Disable click for all options
-//     });
-
-//     // Add 'selected' class to the clicked option
-//     option.classList.add('selected');
-//     option.dataset.questionNumber = questionNumber;
-
-//     // Save the selected option and question number
-//     selectedOptionss.push({ letter, questionNumber });
-
-//     // Log the selected option and update the array
-//     console.log(`Selected option ${letter} for Question ${questionNumber}`);
-// }
-
-
-
-
-
-
-
-
-
 
 
 
