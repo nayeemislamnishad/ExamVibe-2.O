@@ -61,39 +61,15 @@ function showCustomConfirm(message) {
     });
 }
 
-// function startTimer(duration, display) {
-//     document.getElementById('answers').style.display = 'none';
-//     document.getElementById('needTag').style.display = 'none';
-//     document.getElementById('numberInput').style.display = 'none';
-//     document.getElementById('numberInputText').style.display = 'none';
 
-//     let timer = duration, minutes, seconds;
-//     countdownTimer = setInterval(function () {
-//         minutes = parseInt(timer / 60, 10);
-//         seconds = parseInt(timer % 60, 10);
-//         minutes = minutes < 10 ? "0" + minutes : minutes;
-//         seconds = seconds < 10 ? "0" + seconds : seconds;
-//         // display.textContent ="Remaining:"+ minutes +":"  + seconds ;
-//         display.innerHTML = `<span style="font-weight:normal; color: white;">Remaining:</span> ${minutes}:${seconds}`;
-//         if (--timer < 0) {
-//             clearInterval(countdownTimer);
-//             isAutomaticSubmission = true;
-//             submitAnswers();
-//         }
-//     }, 1000);
-// }
 
 function startTimer(duration, display) {
-    // Hide unnecessary elements
     document.getElementById('answers').style.display = 'none';
     document.getElementById('needTag').style.display = 'none';
     document.getElementById('numberInput').style.display = 'none';
     document.getElementById('numberInputText').style.display = 'none';
-
-    // Get the current time (start time)
     const startTime = new Date();
     const endTime = new Date(startTime.getTime() + duration * 1000); // Calculate end time by adding duration (in ms)
-
     // Format time to display (HH:MM AM/PM)
     const formatTime = (time) => {
         return time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -105,8 +81,6 @@ function startTimer(duration, display) {
         seconds = parseInt(timer % 60, 10);
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        // Display remaining time along with start and end times
         display.innerHTML = `
             <span style="font-weight: normal; color: white;">Remaining:</span> ${minutes}:${seconds}
             <br>
@@ -185,25 +159,14 @@ function customRound(number) {
 }
 
 
-// function getRandomNumber(min,max){
-//     return Math.floor(Math.random() * (max-min+1)) + min; 
-// }
-
 function getRandomNumber(min, max) {
-    // Ensure min and max are integers
     min = Math.ceil(min);
     max = Math.floor(max);
-
-    // Handle cases where min is greater than max
     if (min > max) {
         [min, max] = [max, min]; // Swap if min > max
     }
-
-    // Generate and return the random number
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-// const questionNumber = gucco1.length;
 
 
 let randomNumberforNextuse;
@@ -218,20 +181,14 @@ function startExam() {
     const startQnumber = parseInt(document.getElementById('numberInput').value, 10);
     const startQ1 = startQnumber;
     const questionNumber = gucco1.length;
-
     console.log("The starting question number:",startQ1);
     const startingQwillBe = startQnumber+2;
     console.log("Number of questions: ",questionNumber);
     console.log("The last question number is:",startQ1+questionNumber-1);
-
     const TheLastQuestionNumber= startQ1+questionNumber-1;
     const TheLastQwillBe = TheLastQuestionNumber-2;
-
-   
     console.log("the range is under",startingQwillBe,TheLastQwillBe);
-
     let randomNumber = getRandomNumber(startingQwillBe , TheLastQwillBe);
-
     console.log("The random number or the omr starting number will be:", randomNumber);
     randomNumberforNextuse= randomNumber;
     randomNumberforfurtheruse=randomNumber;
@@ -249,12 +206,8 @@ function startExam() {
     resultDiv.textContent = `${timerDuration} minutes`;
     startTimee = new Date();
     startTime = new Date().toLocaleString();
-      let answerSheetHTML = '<h2>OMR Answer Sheet: </h2>';
+    let answerSheetHTML = '<h2>OMR Answer Sheet: </h2>';
     
-
-
-    
-
     for ( ; randomNumber <= TheLastQuestionNumber; randomNumber++) {
         answerSheetHTML += `<div id="question${randomNumber}"><strong> ${randomNumber}:</strong> `;
         for (let j = 0; j < 4; j++) {
@@ -284,7 +237,6 @@ function startExam() {
     var designSb = document.getElementById("submittext");
     designSb.style.fontSize = "20px";
     designSb.style.border = "solid 1px black";
-    
     designSb.style.borderRadius = "23px";
     document.getElementById('answerSheet').style.display = 'block';
     document.getElementById('timer').style.display = 'block';
@@ -293,54 +245,26 @@ function startExam() {
     totalCount = parseInt(questionNumber);
 }
 
-// Initialize a global array to store selected options
-
-
-
-
-
-
 
  const selectedOptionss = [];
- let currentIndex = 0;  // Keeps track of the current position in the serialMustBeFollow array
-// let serialMustBeFollow = [1, 3, 5, 2, 4];  // Example array of question indexes
-
+ let currentIndex = 0; 
 function selectOption(option, letter, questionNumber) {
-    // Check if the current question matches the one to be answered according to the array
     if (answersSubmitted || questionNumber !== serialMustBeFollow[currentIndex]) return;
-
-    // Get all options for the current question
     const options = option.parentNode.querySelectorAll('.option');
-
-    // If the clicked option is already selected, do nothing
     if (option.classList.contains('selected')) return;
-
-    // Disable all options for this question
     options.forEach(opt => {
         opt.classList.remove('selected');
-        opt.onclick = null; // Disable click for all options
+        opt.onclick = null; 
     });
-
-    // Add 'selected' class to the clicked option
     option.classList.add('selected');
     option.dataset.questionNumber = questionNumber;
-
-    // Save the selected option and question number
     selectedOptionss.push({ letter, questionNumber });
-
-    // Log the selected option and update the array
     console.log(`Selected option ${letter} for Question ${questionNumber}`);
-
-    // Move to the next question in the array
     currentIndex++;
-
-    // If all questions are answered, enable the submit button
     if (currentIndex >= serialMustBeFollow.length) {
         document.getElementById('submittext').disabled = false;
     }
 }
-
-
 
 function formatNumber(number) {
     if (Number.isInteger(number)) {
@@ -353,6 +277,7 @@ function formatNumber(number) {
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
 
 async function submitAnswers() {
     const idToHide = document.getElementById('submittext');
@@ -371,18 +296,12 @@ async function submitAnswers() {
     let totalMarks = 0;
     let answeredQuestions = [];
 
-
-
-  
     selectedOptions.forEach(option => {
         const startQnumber = parseInt(document.getElementById('numberInput').value, 10);
         const selectedLetter = option.textContent.trim();
-       
         const correctLetter = correctAnswers[option.dataset.questionNumber-startQnumber].trim();
-       
         console.log("correctLetter",correctLetter);
         const questionNumber = parseInt(option.dataset.questionNumber);
-
         if (selectedLetter === correctLetter) {
             option.classList.add('correct');
             totalMarks += 1;
@@ -394,24 +313,14 @@ async function submitAnswers() {
         answeredQuestions.push(questionNumber);
     });
 
-
-
-
-
-
-
-
     const startQnumber = parseInt(document.getElementById('numberInput').value, 10);
     for ( ; randomNumberforNextuse <= totalCount+startQnumber-1; randomNumberforNextuse++) {
         if (!answeredQuestions.includes(randomNumberforNextuse)) {
-           
-            const questionDiv = document.getElementById(`question${randomNumberforNextuse}`);
-            
+           const questionDiv = document.getElementById(`question${randomNumberforNextuse}`);
             questionDiv.innerHTML += `<div class="option skip">skipped</div>`;
         }
     }
    
-    
     for ( ; m < randomNumberforNextuses; m++) {
         if (!answeredQuestions.includes(m)) {
             const questionDiv = document.getElementById(`question${m}`);
@@ -419,10 +328,8 @@ async function submitAnswers() {
         }
     }
 
-     selectedOptionss.sort((a, b) => a.questionNumber - b.questionNumber);
+    selectedOptionss.sort((a, b) => a.questionNumber - b.questionNumber);
     scrollToTop();
-
-
 
     document.getElementById('originalMarks').style.display = 'block';
     let output =  formatNumber(totalMarks) + "/" + totalCount;
@@ -435,52 +342,27 @@ async function submitAnswers() {
     const feedbackMessage = getFeedbackMessage(actual_marks);
     document.getElementById("originalMarksss").innerHTML = feedbackMessage;
     let timeDiff = endTimee - startTimee;
-    // Convert the difference to seconds and minutes
     let secondsss = Math.floor((timeDiff / 1000) % 60);
     let minutesss = Math.floor((timeDiff / (1000 * 60)) % 60);
-     let outputttt =  minutesss  + " min"+"&nbsp;&nbsp;&nbsp;" + secondsss + " sec";
+    let outputttt =  minutesss  + " min"+"&nbsp;&nbsp;&nbsp;" + secondsss + " sec";
     document.getElementById("originalMarkssss").innerHTML = outputttt;
 
-
-
-
-
-
-    
     const options = document.querySelectorAll('.option');
     options.forEach(opt => opt.onclick = null);
     const startQ = startQnumber;
-     console.log("fucking problem here:",correctAnswers.length);
-    
-    
-
-
-
-
+     console.log("Number of questions:",correctAnswers.length);
     console.log("Check the arra:",correctAnswers);
     const thelastnumber =correctAnswers.length+startQ;
    
-
-
-
-
-
-
-
     let n =startQ;
-    
     for (let x=1; n <= thelastnumber; n++) {
-       
-        if (x <=correctAnswers.length) {
-            // Increment x only if it's less than 5
+       if (x <=correctAnswers.length) {
             const correctLetter = correctAnswers[x - 1];
             console.log("correct letter:",correctLetter);
             x++; 
             const questionDiv = document.getElementById(`question${n}`);
             questionDiv.innerHTML += `<div class="correct-answer">Correct Answer: ${correctLetter}</div>`;
-        }
-       
-        
+        }   
     }
 
 
@@ -524,15 +406,4 @@ window.onbeforeunload = function () {
         return "Are you sure you want to leave? Your answers will be lost.";
     }
 };
-
-
-
-
-
-
-
-
-
-
-
 
