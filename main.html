@@ -98,16 +98,39 @@ input[type="text"]:focus {
             resultDiv.innerHTML = message;
         }
     }
-    let startQnumber = "";
+    // let startQnumber = "1";
+    // function validateNumber(input) {
+    //     const value = input.value;
+    //     if (isNaN(value) || value === "") {
+    //         input.value = 1;
+    //     }
+    //     startQnumber = document.getElementById('numberInput').value;
+    //     startQnumber = parseInt(startQnumber, 10);
+    //     // startQnumber -= 1;
+    // }
+
+
+    
     function validateNumber(input) {
         const value = input.value;
         if (isNaN(value) || value === "") {
             input.value = 1;
         }
-        startQnumber = document.getElementById('numberInput').value;
-        startQnumber = parseInt(startQnumber, 10);
-        startQnumber -= 1;
+       
+       
     }
+
+
+    function validateNumberTime(input) {
+        const value = input.value;
+        if (isNaN(value) || value === "") {
+            input.value = 20;
+        }
+       
+    }
+
+    
+
 </script>
 </head>
 <body>
@@ -163,7 +186,7 @@ input[type="text"]:focus {
         </div>
         <div class="form-group">
             <label for="timePerQuestion" id="timePerQuestionText">Enter time per question (seconds):</label>
-            <input type="text" id="timePerQuestion" value="20">
+            <input type="text" id="timePerQuestion" value="20" oninput="validateNumberTime(this)">
         </div>
 
         <!-- <h4 id="needTag">Set Correct Answers here.. (in reverse)</h4>       in case ofreverse  --> 
