@@ -139,6 +139,7 @@ function startReviseTimer() {
     document.getElementById("needTag").style.display = "none";
 
     const questionNumber = gucco1.length;
+    const startQnumber = parseInt(document.getElementById('numberInput').value, 10);
     const startQ = startQnumber;
     const timePerQuestion = parseInt(document.getElementById('timePerQuestion').value, 10);
     const timeInSeconds = questionNumber * timePerQuestion;
@@ -184,30 +185,61 @@ function customRound(number) {
 }
 
 
-function getRandomNumber(min,max){
-    return Math.floor(Math.random() * (max-min+1)) + min; 
+// function getRandomNumber(min,max){
+//     return Math.floor(Math.random() * (max-min+1)) + min; 
+// }
+
+function getRandomNumber(min, max) {
+    // Ensure min and max are integers
+    min = Math.ceil(min);
+    max = Math.floor(max);
+
+    // Handle cases where min is greater than max
+    if (min > max) {
+        [min, max] = [max, min]; // Swap if min > max
+    }
+
+    // Generate and return the random number
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
 // const questionNumber = gucco1.length;
 
 
 let randomNumberforNextuse;
 let randomNumberforfurtheruse;
-
+let randomNumberforfurtheruses;
+let m;
+let k;
+let j;
 let serialMustBeFollow=[];
 
 function startExam() {
-    
+    const startQnumber = parseInt(document.getElementById('numberInput').value, 10);
+    const startQ1 = startQnumber;
     const questionNumber = gucco1.length;
-    const numberx=questionNumber/2;
-    const numberxx= Math.ceil(numberx)+1;
 
-    const numbery=questionNumber/3;
-    const numberyy= Math.floor(numbery+1);
-    let randomNumber = getRandomNumber(numberyy,numberxx);
+    console.log("The starting question number:",startQ1);
+    const startingQwillBe = startQnumber+2;
+    console.log("Number of questions: ",questionNumber);
+    console.log("The last question number is:",startQ1+questionNumber-1);
+
+    const TheLastQuestionNumber= startQ1+questionNumber-1;
+    const TheLastQwillBe = TheLastQuestionNumber-2;
+
+   
+    console.log("the range is under",startingQwillBe,TheLastQwillBe);
+
+    let randomNumber = getRandomNumber(startingQwillBe , TheLastQwillBe);
+
+    console.log("The random number or the omr starting number will be:", randomNumber);
     randomNumberforNextuse= randomNumber;
     randomNumberforfurtheruse=randomNumber;
     randomNumberforNextuses= randomNumber;
     randomNumberforfurtheruses=randomNumber;
+    m=startQnumber;
+    k=randomNumber;
+    j=randomNumber;
     const startQ = startQnumber;
     const timePerQuestion = parseInt(document.getElementById('timePerQuestion').value, 10);
     const timeInSeconds = questionNumber * timePerQuestion;
@@ -223,25 +255,26 @@ function startExam() {
 
     
 
-    for ( ; randomNumber <= questionNumber; randomNumber++) {
-        answerSheetHTML += `<div id="question${randomNumber + startQ}"><strong> ${randomNumber + startQ}:</strong> `;
+    for ( ; randomNumber <= TheLastQuestionNumber; randomNumber++) {
+        answerSheetHTML += `<div id="question${randomNumber}"><strong> ${randomNumber}:</strong> `;
         for (let j = 0; j < 4; j++) {
             const option = String.fromCharCode(97 + j);
-            answerSheetHTML += `<div class="option" onclick="selectOption(this, '${option}', ${randomNumber + startQ})">${option}</div>`;
+            answerSheetHTML += `<div class="option" onclick="selectOption(this, '${option}', ${randomNumber})">${option}</div>`;
         }
         answerSheetHTML += `</div>`;
-        console.log("serial og questions", randomNumber);
+        console.log("serial of questions", randomNumber);
         serialMustBeFollow.push(randomNumber);
     }
-
-    for (let i=1 ; i < randomNumberforNextuse; i++) {
-        answerSheetHTML += `<div id="question${i + startQ}"><strong> ${i + startQ}:</strong> `;
+      let i=startQ;
+      console.log("sob bad ekhane dek koto number ",i);
+    for (; i < randomNumberforNextuse; i++) {
+        answerSheetHTML += `<div id="question${i}"><strong> ${i}:</strong> `;
         for (let j = 0; j < 4; j++) {
             const option = String.fromCharCode(97 + j);
-            answerSheetHTML += `<div class="option" onclick="selectOption(this, '${option}', ${i + startQ})">${option}</div>`;
+            answerSheetHTML += `<div class="option" onclick="selectOption(this, '${option}', ${i})">${option}</div>`;
         }
         answerSheetHTML += `</div>`;
-        console.log("serial og questions", i);
+        console.log("serial of questions", i);
         serialMustBeFollow.push(i);
     }
 
@@ -338,10 +371,17 @@ async function submitAnswers() {
     let totalMarks = 0;
     let answeredQuestions = [];
 
+
+
+  
     selectedOptions.forEach(option => {
+        const startQnumber = parseInt(document.getElementById('numberInput').value, 10);
         const selectedLetter = option.textContent.trim();
-        const correctLetter = correctAnswers[option.dataset.questionNumber - startQnumber -1 ].trim();
-        const questionNumber = parseInt(option.dataset.questionNumber - startQnumber );
+       
+        const correctLetter = correctAnswers[option.dataset.questionNumber-startQnumber].trim();
+       
+        console.log("correctLetter",correctLetter);
+        const questionNumber = parseInt(option.dataset.questionNumber);
 
         if (selectedLetter === correctLetter) {
             option.classList.add('correct');
@@ -354,15 +394,27 @@ async function submitAnswers() {
         answeredQuestions.push(questionNumber);
     });
 
-    for ( ; randomNumberforNextuse <= totalCount; randomNumberforNextuse++) {
+
+
+
+
+
+
+
+    const startQnumber = parseInt(document.getElementById('numberInput').value, 10);
+    for ( ; randomNumberforNextuse <= totalCount+startQnumber-1; randomNumberforNextuse++) {
         if (!answeredQuestions.includes(randomNumberforNextuse)) {
+           
             const questionDiv = document.getElementById(`question${randomNumberforNextuse}`);
+            
             questionDiv.innerHTML += `<div class="option skip">skipped</div>`;
         }
     }
-    for (let i=1 ; i < randomNumberforNextuses; i++) {
-        if (!answeredQuestions.includes(i)) {
-            const questionDiv = document.getElementById(`question${i}`);
+   
+    
+    for ( ; m < randomNumberforNextuses; m++) {
+        if (!answeredQuestions.includes(m)) {
+            const questionDiv = document.getElementById(`question${m}`);
             questionDiv.innerHTML += `<div class="option skip">skipped</div>`;
         }
     }
@@ -398,17 +450,37 @@ async function submitAnswers() {
     const options = document.querySelectorAll('.option');
     options.forEach(opt => opt.onclick = null);
     const startQ = startQnumber;
-
+     console.log("fucking problem here:",correctAnswers.length);
     
-    for (; randomNumberforfurtheruse <= correctAnswers.length; randomNumberforfurtheruse++) {
-        const correctLetter = correctAnswers[randomNumberforfurtheruse - 1];
-        const questionDiv = document.getElementById(`question${randomNumberforfurtheruse + startQ}`);
-        questionDiv.innerHTML += `<div class="correct-answer">Correct Answer: ${correctLetter}</div>`;
-    }
-    for (let i=1; i < randomNumberforfurtheruses; i++) {
-        const correctLetter = correctAnswers[i - 1];
-        const questionDiv = document.getElementById(`question${i + startQ}`);
-        questionDiv.innerHTML += `<div class="correct-answer">Correct Answer: ${correctLetter}</div>`;
+    
+
+
+
+
+    console.log("Check the arra:",correctAnswers);
+    const thelastnumber =correctAnswers.length+startQ;
+   
+
+
+
+
+
+
+
+    let n =startQ;
+    
+    for (let x=1; n <= thelastnumber; n++) {
+       
+        if (x <=correctAnswers.length) {
+            // Increment x only if it's less than 5
+            const correctLetter = correctAnswers[x - 1];
+            console.log("correct letter:",correctLetter);
+            x++; 
+            const questionDiv = document.getElementById(`question${n}`);
+            questionDiv.innerHTML += `<div class="correct-answer">Correct Answer: ${correctLetter}</div>`;
+        }
+       
+        
     }
 
 
@@ -452,7 +524,6 @@ window.onbeforeunload = function () {
         return "Are you sure you want to leave? Your answers will be lost.";
     }
 };
-
 
 
 
