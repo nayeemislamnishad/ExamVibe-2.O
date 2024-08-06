@@ -246,14 +246,26 @@ button:hover {
     font-family: cursive;
 }
 
-#verifyBytton{
-    padding: 13px 10px;
-    background: #007bff;
-    color: white;
+
+
+#omrSheetH{
+    color: red;
+}
+
+#verifyBytton {
+    padding: 12px 0px;
+    background: white;
+    color: black;
     font-weight: bold;
     font-size: 20px;
     cursor: pointer;
-     border-radius: 5px;
+    border-radius: 5px;
     transition: 0.3s;
-    width: 50%;
+    width: 40%;
+    border: solid 1.5px black;
+
+}
+#verifyBytton:hover{
+    color: white;
+    background-color: black;
 }
