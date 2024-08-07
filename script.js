@@ -6,30 +6,60 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('headerBox').style.display = 'none';
     
     var ddddd = document.getElementById('generatedText');
-      ddddd.style.border = "solid 1px #d7dbdd";
-    ddddd.style.background = "white";
-    ddddd.style.background = "linear-gradient(135deg, #e0f7fa 0%, #f9fbe7 100%)";
-    ddddd.style.boxShadow= "0 8px 10px rgba(0, 0, 0, 0.1)";
-
-
-
-
-
-
-
-    ddddd.style.color="black";
-    ddddd.style.borderRadius = "23px";
+    
+    
+    // ddddd.style.border = "solid 1px #d7dbdd";
+    // ddddd.style.background = "white";
+    // ddddd.style.background = "linear-gradient(135deg, #e0f7fa 0%, #f9fbe7 100%)";
+    // ddddd.style.boxShadow= "0 8px 10px rgba(0, 0, 0, 0.1)";
+    // ddddd.style.color="black";
+    // ddddd.style.borderRadius = "23px";
+    // ddddd.style.width = "60%";
+    // ddddd.style.height = "50px";
+    // ddddd.style.fontSize = "20px";
+    // ddddd.style.padding = "3px";
+    // ddddd.style.fontWeight="normal";
+    // ddddd.addEventListener("mouseenter", function () {
+    //     ddddd.style.background = "black";
+    //     ddddd.style.backgroundColor = "black"; 
+    //     ddddd.style.color = "white";    
+    //     ddddd.style.fontWeight="normal";     
+    // });
+    ddddd.style.border = "solid 1px #a8d5ba";  // Light green border for a subtle touch
+    ddddd.style.background = "linear-gradient(135deg, #d4f0e8 0%, #a8d5ba 100%)";  // Elegant light green gradient
+    ddddd.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";  // Soft shadow for a refined look
+    ddddd.style.color = "#333333";  // Dark text for high contrast and readability
+    ddddd.style.borderRadius = "30px";  // Rounded corners for a modern appearance
     ddddd.style.width = "60%";
     ddddd.style.height = "50px";
-    ddddd.style.fontSize = "20px";
-    ddddd.style.padding = "3px";
-    ddddd.style.fontWeight="normal";
+    ddddd.style.fontSize = "18px";
+    ddddd.style.padding = "10px 20px";
+    ddddd.style.fontWeight = "500";
+    ddddd.style.transition = "all 0.3s ease";
+    
     ddddd.addEventListener("mouseenter", function () {
-        ddddd.style.background = "black";
-        ddddd.style.backgroundColor = "black"; 
-        ddddd.style.color = "white";    
-        ddddd.style.fontWeight="normal";     
+        ddddd.style.background = "#a8d5ba";  // Solid light green on hover
+        ddddd.style.color = "black";  // White text for a clean look on hover
+        ddddd.style.boxShadow = "0 6px 12px rgba(0, 0, 0, 0.2)";  // Enhanced shadow on hover
+        ddddd.style.borderColor = "#8bc34a";  // Slightly darker green border on hover
+        ddddd.style.fontWeight = "600";     
     });
+    
+    ddddd.addEventListener("mouseleave", function () {
+        ddddd.style.background = "linear-gradient(135deg, #d4f0e8 0%, #a8d5ba 100%)";
+        ddddd.style.color = "#333333"; 
+        ddddd.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+        ddddd.style.borderColor = "#a8d5ba";  // Restore original border color
+        ddddd.style.fontWeight = "500";     
+    });
+    
+  
+
+
+
+
+
+    
 
     window.onbeforeunload = function () {
         if (!answersSubmitted) {
@@ -37,6 +67,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 });
+
+
+
+
+
+
+
+
+
 
 let totalCount = 0;
 let answersSubmitted = false;
