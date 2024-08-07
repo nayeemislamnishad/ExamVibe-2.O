@@ -6,6 +6,7 @@
 <title>ExamVibe</title>
 <link rel="icon" href="ExamVibe.ico" type="image/x-icon">
 <link rel="stylesheet" href="styles.css">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -15,12 +16,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
     
-    <style>
+   
+<style>
     /* Custom alert box styles */
     .custom-alert, .custom-confirm {
         display: none;
         position: fixed;
-        width: 70%;
+        width: 50%;
         z-index: 1000;
         left: 50%;
         top: 50%;
@@ -40,15 +42,27 @@
         padding: 5px 20px;
         /* background-color: #007bff;
         color: white; */
-        background-color: white;
-        color: black;
+        background-color: #3a9eb8;
+        color: white;
         border: none;
-        border: solid 1px black;
+        border: solid 1px  #3a9eb8;
         cursor: pointer;
     }
     .custom-confirm .confirm-buttons {
         display: flex;
         justify-content: space-between;
+    }
+    #yesopt{
+        background-color: #3a9eb8;
+        color: white;
+        border: none;
+        border: solid 1px  #3a9eb8;
+    }
+    #noopt{
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border: solid 1px  #dc3545;;
     }
     label {
     font-size: 20px;
@@ -145,8 +159,8 @@ input[type="text"]:focus {
     <div id="customConfirm" class="custom-confirm">
         <div class="confirm-content" id="confirmContent"></div>
         <div class="confirm-buttons">
-            <button class="confirm-button" onclick="resolveCustomConfirm(true)">Yes</button>
-            <button class="confirm-button" onclick="resolveCustomConfirm(false)">No</button>
+            <button class="confirm-button" id="yesopt" onclick="resolveCustomConfirm(true)">Yes</button>
+            <button class="confirm-button" id="noopt" onclick="resolveCustomConfirm(false)">No</button>
         </div>
     </div>
     <br><br>
