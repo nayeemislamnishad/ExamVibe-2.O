@@ -7,24 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     var ddddd = document.getElementById('generatedText');
     
-    
-    // ddddd.style.border = "solid 1px #d7dbdd";
-    // ddddd.style.background = "white";
-    // ddddd.style.background = "linear-gradient(135deg, #e0f7fa 0%, #f9fbe7 100%)";
-    // ddddd.style.boxShadow= "0 8px 10px rgba(0, 0, 0, 0.1)";
-    // ddddd.style.color="black";
-    // ddddd.style.borderRadius = "23px";
-    // ddddd.style.width = "60%";
-    // ddddd.style.height = "50px";
-    // ddddd.style.fontSize = "20px";
-    // ddddd.style.padding = "3px";
-    // ddddd.style.fontWeight="normal";
-    // ddddd.addEventListener("mouseenter", function () {
-    //     ddddd.style.background = "black";
-    //     ddddd.style.backgroundColor = "black"; 
-    //     ddddd.style.color = "white";    
-    //     ddddd.style.fontWeight="normal";     
-    // });
     ddddd.style.border = "solid 1px #a8d5ba";  // Light green border for a subtle touch
     ddddd.style.background = "linear-gradient(135deg, #d4f0e8 0%, #a8d5ba 100%)";  // Elegant light green gradient
     ddddd.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";  // Soft shadow for a refined look
@@ -56,22 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
   
 
 
-
-
-
-    
-
     window.onbeforeunload = function () {
         if (!answersSubmitted) {
             return "Are you sure you want to leave? Your answers will be lost.";
         }
     };
 });
-
-
-
-
-
 
 
 
@@ -284,9 +256,31 @@ function startExam() {
     hideAll();
     document.getElementById('submittext').style.display = 'block';
     var designSb = document.getElementById("submittext");
-    designSb.style.fontSize = "20px";
-    designSb.style.border = "solid 1px black";
-    designSb.style.borderRadius = "23px";
+
+    designSb.style.background = "linear-gradient(135deg, #a8d5ba 0%, #74c69d 100%)";
+designSb.style.fontSize = "20px";
+designSb.style.color = "rgb(10, 26, 13)";
+designSb.style.border = "none";
+designSb.style.borderRadius = "30px";
+designSb.style.padding = "12px 24px";
+designSb.style.cursor = "pointer";
+designSb.style.transition = "all 0.3s ease";
+designSb.style.boxShadow = "0px 4px 8px rgba(0, 0, 0, 0.2)";
+
+
+designSb.onmouseover = function() {
+    this.style.background = "linear-gradient(135deg, #74c69d 0%, #a8d5ba 100%)";
+    this.style.boxShadow = "0px 6px 12px rgba(0, 0, 0, 0.3)";
+};
+
+designSb.onmouseout = function() {
+    this.style.background = "linear-gradient(135deg, #a8d5ba 0%, #74c69d 100%)";
+    this.style.boxShadow = "0px 4px 8px rgba(0, 0, 0, 0.2)";
+};
+
+
+
+
     document.getElementById('answerSheet').style.display = 'block';
     document.getElementById('timer').style.display = 'block';
     const timerDisplay = document.getElementById('timer');
