@@ -3,55 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ExamVibe (guidelines)</title>
+    <title>Exam Guide</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    background: #f4f4f4;
-}
-
-.container {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-    background: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h1, h2 {
-    color: #333;
-}
-
-.section {
-    margin-bottom: 20px;
-    padding: 20px;
-    background: #f9f9f9;
-    border-left: 5px solid #333;
-}
-
-.section p {
-    color: #555;
-}
-
-@media (max-width: 600px) {
-    .container {
-        padding: 10px;
-    }
-    .section {
-        padding: 10px;
-    }
-}
-
-        
-    </style>
 </head>
 <body>
     <div class="container">
-        <h1>এই website দিয়ে কিভাবে পরীক্ষা দিব? একটু জেনে নিন---</h1>
+        <h1>এই website দিয়ে কিভাবে পরীক্ষা দিব? একটু জেনে নিন---</h1>
         
         <div class="section">
             <h2>Enter the starting question Number:</h2>
@@ -60,19 +17,19 @@ h1, h2 {
 
         <div class="section">
             <h2>Enter time per question (seconds):</h2>
-            <p>এখানে আপনি 1 টা MCQ এর জন্য কত সময় নিয়ে পরীক্ষা দিতে চান সেই সময়টা সেকেন্ডে বসাতে হবে। মনে করেন আপনি প্রতি  MCQ তে 30 second নিবেন। সে হিসেবে পরীক্ষা দিব। তাহলে ওখানে 30 দিতে হবে। যদিও by default 20 second দেওয়া আছে। মানে ঐ বক্সে যদি আপনি কোনো কিছু change না করেন তাহলে প্রতি MCQ যে 20 second সময় সে আপনাকে দিবে। এভাবে total time তৈরি  করে দিবে আপনার জন্য।</p>
+            <p>এখানে আপনি 1 টা MCQ এর জন্য কত সময় নিয়ে পরীক্ষা দিতে চান সেই সময়টা সেকেন্ডে বসাতে হবে। মনে করেন আপনি প্রতি MCQ তে 30 second নিবেন। সে হিসেবে পরীক্ষা দিব। তাহলে ওখানে 30 দিতে হবে। যদিও by default 20 second দেওয়া আছে। মানে ঐ বক্সে যদি আপনি কোনো কিছু change না করেন তাহলে প্রতি MCQ যে 20 second সময় সে আপনাকে দিবে। এভাবে total time তৈরি করে দিবে আপনার জন্য।</p>
         </div>
 
         <div class="section">
             <h2>Preset Correct Answers here... serially:</h2>
-            <p>এখানে serially আপনার question paper এর সঠিক উত্তর গুলো দিয়ে দিবেন। আপনার question এ যদি (1-100) টা বা (1-50 ) টা MCQ question থাকে তাহলে আপনি শুধু মাত্র সিরিয়ালি answer গুলো দিয়ে দিবেন। যেমনঃ acadaccdaadd...... <br> এখন যখন আপনি website এ দিয়ে start করবেন তখন আপনার জন্য automatic omr answer sheet তৈরি করে দিবে।</p>
-            <p>ধরেন- আপনি starting question number দিলেন 1(বলে এ টা না করলেও সমস্যা নেই)। প্রতি question এর জন্য সময় দিয়ে দিলেন আর 50 টা answer সিরিয়ালি দিলেন। এভাবে - acadaccdaadd....<br> এরপপর Generate Answer Sheet button এ ক্লিক করলেন। Website আপনার জন্য 1- 50 টা omr answer sheet generate করবে।</p>
+            <p>এখানে serially আপনার question paper এর সঠিক উত্তর গুলো দিয়ে দিবেন । আপনার question এ যদি (1-100) টা বা (1-50 ) টা MCQ question থাকে থাকলে আপনি শুধু মাত্র সিরিয়ালি answer গুলো দিয়ে দিবেন। এভাবে- acadaccdaadd......<br> উত্তর যতগুলো দিবেন website আপনার জন্য ততটি omr answer sheet automatic তৈরি করে দিবে।</p>
+            <p>ধরেন-<br> আপনি starting question number দিলেন 1(বক্সে এ টাচ না করলেও সমস্যা নেই)।<br> প্রতি question এর জন্য সময় দিয়ে দিলেন আর 50 টা answer সিরিয়ালি দিলেন। এভাবে - acadaccdaadd....<br> এরপর Generate Answer Sheet button এ ক্লিক করলেন। Website আপনার জন্য 1- 50 টা omr answer sheet generate করবে।</p>
         </div>
 
         <div class="section">
-            <h2>আমি নিজেই উত্তর সেট করে দিলাম? এটা কিভাবে ইহলো?</h2>
-            <p>আপনি যখন generate answer sheet button এ ক্লিক করবেন তখন 1- 50(আগের উদাহরণের ক্ষেত্রে বলতেছি) এর মধ্যে random একটা number দিয়ে আপনার উত্তর পদ শুরু হবে। সেই number ধরেই আপনাকে উত্তর করতে পরীক্ষা শেষ করতে হবে। আপনি সেই serial break করে অন্য কোনো question answer ই করতে পারবেন না। আর হ্যা একটা question এর answer choose করতে হবে। আপনি answer "a" circle choose করার পর "c" বা "d" আবার choose করতে পারবেন না। প্রতি question এর ক্ষেত্রেও একরকম। আপনি কোনো question skip ও করতে পারবেন না। Skip করার কোন মানেও তো হয় না যেহেতু আপনি বাসায় বসে পরীক্ষা দিবেন, নিজের practise এর জন্য।</p>
-            <p>আর একটা বিষয়। Negative marking ও আছে। যা প্রতি ভুল answer এর জন্য .25 ।</p>
+            <h2>আমি নিজেই উত্তর সেট করে দিলাম?এটা কিছু হইলো?</h2>
+            <p>আপনি যখন generate answer sheet button এ ক্লিক করবেন তখন 1- 50(আগের উদাহরণের ক্ষেত্রে বলতেছি) এর মধ্যে random একটা number দিয়ে আপনার উত্তর পত্র শুরু হবে। সেই নম্বর ধরেই আপনাকে উত্তর করতে করতে পরীক্ষা শেষ করতে হবে। আপনি সেই serial break করে পরের কোনো question answer ই করতে পারবেন না। আর হ্যাঁ একটা question এর answer একবার ই choose করতে হবে। আপনি answer "a" circle choose করার পর "c" বা "d" আবার choose করতে পারবেন না। প্রতি question এর ক্ষেত্রে এরকম। আপনি কোনো question skip ও করতে পারবেন না। Skip করার কোন মানেও তো হয় না যেহেতু আপনি বাসায় বসে পরীক্ষা দেবেন, নিজের practise এর জন্য।</p>
+            <p>আর এক টা বিষয় । Negative marking ও আছে। যা প্রতি ভূল answer এর জন্য .25 ।‌</p>
         </div>
     </div>
     <script src="script.js"></script>
