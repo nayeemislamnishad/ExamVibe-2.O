@@ -253,19 +253,21 @@ button:hover {
 }
 
 #verifyBytton {
-    padding: 12px 0px;
-    background: white;
-    color: black;
-    font-weight: bold;
+    border: solid 1px #e0e0e0;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    color: #ffffff;
+    border-radius: 23px;
+    width: 60%;
+    height: 50px;
     font-size: 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: 0.3s;
-    width: 40%;
-    border: solid 1.5px black;
-
+    padding: 8px 15px;
+    font-weight: normal;
+    transition: all 0.3s ease;
 }
-#verifyBytton:hover{
-    color: white;
-    background-color: black;
+
+#verifyBytton:hover {
+    background: #2575fc;
+    color: #e0e0e0; 
+    font-weight: bold;     
 }
