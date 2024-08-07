@@ -143,9 +143,7 @@ button:hover {
     color: #fff;
 }
 
-.correct {
-    background-color: #7fff7f; /* Green */
-}
+
 
 .incorrect {
     background-color: #ff7f7f; /* Red */
@@ -169,7 +167,7 @@ button:hover {
 }
 
 .correct {
-    background-color: #7fff7f; /* Green */
+    background-color:#15cd15; /* Green */
 }
 
 .incorrect {
@@ -202,12 +200,14 @@ button:hover {
 }
 
 .correct {
-    background-color: #00d700;
+    background-color: #15cd15;
     color: white;
+    
+    border-color: #15cd15;
 }
 
 .incorrect {
-    background-color:#D2122E; /* Red */
+    background-color:red; /* Red */
     color: white;
 }
 .correct-answer {
@@ -240,26 +240,15 @@ button:hover {
 .correct-answer-circle {
     background-color: green;
     color: #fff;
-}
-/* Updated styles to color the full circle of the correct answer */
 
-/* Updated styles to differentiate correct answer */
+}
 
 .correct-answer {
     margin-top: 5px;
-    color: rgb(31, 226, 31); /* Green color for correct answer */
+    color:green; 
     font-weight: 600;
 }
 
-/* Updated styles to differentiate correct answer */
-
-.correct-answer {
-    margin-top: 5px;
-    color: green; /* Green color for correct answer */
-    font-weight: 600;
-}
-
-/* Updated styles to create bubble circles with letters centered inside */
 
 .option {
     display: inline-flex;
@@ -329,7 +318,8 @@ input[type="number"] {
 }
 
 .skip{
-    background-color: #000;
+    background-color:#30353a;
+    border-color: #30353a;
     color: #ffffff;
     font-size: 12px;
     font-weight: bold;
@@ -410,6 +400,7 @@ input[type="number"] {
 .highlight {
     font-weight: bold;
     background:rgb(0, 47, 255);
+    background:rgb(0 30 147);
     color: white;
 }
 @keyframes float {
@@ -515,6 +506,7 @@ input[type="number"] {
 
 button#generatedText {
     margin: 6% 20% 5% 20%;
+    color: red;
 }
 .form-group {
     display: flex;
