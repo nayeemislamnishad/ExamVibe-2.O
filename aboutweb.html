@@ -3,54 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About ExamVibe</title>
-    <link rel="stylesheet" href="styless.css">
-    
+    <title>ExamVibe (guidelines)</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: #333;
+}
+
+.section {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-left: 5px solid #333;
+}
+
+.section p {
+    color: #555;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+    .section {
+        padding: 10px;
+    }
+}
+
+        
+    </style>
 </head>
 <body>
-
     <div class="container">
-        <header>
-            <a href="index.html" style="text-decoration: none;">
-            <h1 class="examvibe-header" style="padding: 20px; border-radius: 15px; background: #ffffff; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
-                <img src="gradcap.jpg" style="width: 80px; margin-right: 15px;">
-                ExamVibe
-            </h1>
-
-              </a>
-            
-        </header>
-
-
-
-
-        <div class="verification-box">
-            <div class="video-container">
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/riP3MC6YZn4" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-
+        <h1>এই website দিয়ে কিভাবে পরীক্ষা দিব? একটু জেনে নিন---</h1>
+        
+        <div class="section">
+            <h2>Enter the starting question Number:</h2>
+            <p>এখানে আপনি সেই question number টি দিবেন যেই সংখ্যা দিয়ে আপনার question paper শুরু। মনে করেন।আপনার কাছে একটা question paper আছে যেটাতে (1 -100) পর্যন্ত মোট 100 টা MCQ আছে। তাহলে আপনাকে ঐ বক্সে 1 বসাতে হবে।কারন আপনার question এর starting number হচ্ছে 1 । যদিও by default 1 দিয়েই শুরু হবে। মানে সেই বক্সে কিছু change না করলেও 1 দিয়েই শুরু হবে।</p>
         </div>
 
+        <div class="section">
+            <h2>Enter time per question (seconds):</h2>
+            <p>এখানে আপনি প্রতি MCQ এর জন্য কত সময় নিয়ে পরীক্ষা দিতে চান সেই সময়টা সেকেন্ডে বসাতে হবে। মনে করুন আপনি প্রতি MCQ তে 30 second নিবেন। সে হিসেবে পরীক্ষা দিব। তাহলে ওখানে 30 দিতে হবে। যদিও by default 20 second দেওয়া আছে। মানে ঐ সংখ্যা যদি আপনি কোনো কিছু change না করেন তাহলে প্রতি MCQ যে 20 second সময় সে আপনাকে দিবে। এভাবে total time তৈরী করে দিবে আপনার জন্য।</p>
+        </div>
 
+        <div class="section">
+            <h2>Preset Correct Answers here... serially:</h2>
+            <p>এখানে serially আপনার question paper এর সঠিক উত্তর গুলো দিয়ে দিবেন। আপনার question এ যদি (1-100) টা বা (1-50 ) টা MCQ question থাকে তাহলে আপনি শুধু মাত্র সিরিয়ালি answer গুলো দিয়ে দিবেন। যেমনঃ acadaccdaadd...... <br> এখন যখন আপনি website এ দিয়ে start করবেন তখন আপনার জন্য automatic omr answer sheet তৈরি করে দিবে।</p>
+            <p>ধরেন- আপনি starting question number দিলেন 1(বলে এ টা না করলেও সমস্যা নেই)। প্রতি question এর জন্য সময় দিয়ে দিলেন আর 50 টা answer সিরিয়ালি দিলেন। এভাবে - acadaccdaadd....<br> এরপপর Generate Answer Sheet button এ ক্লিক করলেন। Website আপনার জন্য 1- 50 টা omr answer sheet generate করবে।</p>
+        </div>
 
-
-
+        <div class="section">
+            <h2>আমি নিজেই উত্তর সেট করে দিলাম? এটা কিভাবে ইহলো?</h2>
+            <p>আপনি যখন generate answer sheet button এ ক্লিক করবেন তখন 1- 50(আগের উদাহরণের ক্ষেত্রে বলতেছি) এর মধ্যে random একটা number দিয়ে আপনার উত্তর পদ শুরু হবে। সেই number ধরেই আপনাকে উত্তর করতে পরীক্ষা শেষ করতে হবে। আপনি সেই serial break করে অন্য কোনো question answer ই করতে পারবেন না। আর হ্যা একটা question এর answer choose করতে হবে। আপনি answer "a" circle choose করার পর "c" বা "d" আবার choose করতে পারবেন না। প্রতি question এর ক্ষেত্রেও একরকম। আপনি কোনো question skip ও করতে পারবেন না। Skip করার কোন মানেও তো হয় না যেহেতু আপনি বাসায় বসে পরীক্ষা দিবেন, নিজের practise এর জন্য।</p>
+            <p>আর একটা বিষয়। Negative marking ও আছে। যা প্রতি ভুল answer এর জন্য .25 ।</p>
+        </div>
     </div>
-    <script>
-        document.getElementById('verification-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const secretCode = document.getElementById('secret-code').value;
-            // Add your obfuscation and validation logic here
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
-</html> 
-
-
-
-
-
-
-
+</html>
