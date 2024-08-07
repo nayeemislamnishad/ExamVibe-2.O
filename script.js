@@ -6,8 +6,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('headerBox').style.display = 'none';
     
     var ddddd = document.getElementById('generatedText');
-    ddddd.style.border = "solid 1px black";
+      ddddd.style.border = "solid 1px #d7dbdd";
     ddddd.style.background = "white";
+    ddddd.style.background = "linear-gradient(135deg, #e0f7fa 0%, #f9fbe7 100%)";
+    ddddd.style.boxShadow= "0 8px 10px rgba(0, 0, 0, 0.1)";
+
+
+
+
+
+
+
     ddddd.style.color="black";
     ddddd.style.borderRadius = "23px";
     ddddd.style.width = "60%";
@@ -16,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ddddd.style.padding = "3px";
     ddddd.style.fontWeight="normal";
     ddddd.addEventListener("mouseenter", function () {
+        ddddd.style.background = "black";
         ddddd.style.backgroundColor = "black"; 
         ddddd.style.color = "white";    
         ddddd.style.fontWeight="normal";     
@@ -406,4 +416,15 @@ window.onbeforeunload = function () {
         return "Are you sure you want to leave? Your answers will be lost.";
     }
 };
+
+
+
+
+
+
+
+
+
+
+
 
